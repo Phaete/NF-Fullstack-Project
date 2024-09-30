@@ -50,11 +50,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/de.flapdoodle.embed/de.flapdoodle.embed.mongo -->
         <dependency>
             <groupId>de.flapdoodle.embed</groupId>
-            <artifactId>de.flapdoodle.embed.mongo</artifactId>
-            <version>4.17.0</version>
+            <artifactId>de.flapdoodle.embed.mongo.spring3x</artifactId>
+            <version>4.13.0</version>
             <scope>test</scope>
         </dependency>
 
