@@ -1,4 +1,4 @@
-package com.phaete.fullstackbackend;
+package com.phaete.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
