@@ -1,4 +1,4 @@
-package com.phaete.backend.fitness;
+package com.phaete.backend.fitness.model;
 
 public record ExerciseDTO(String name,
                           String type,

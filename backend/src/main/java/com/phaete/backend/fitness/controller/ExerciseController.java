@@ -1,5 +1,8 @@
-package com.phaete.backend.fitness;
+package com.phaete.backend.fitness.controller;
 
+import com.phaete.backend.fitness.model.Exercise;
+import com.phaete.backend.fitness.model.ExerciseDTO;
+import com.phaete.backend.fitness.service.ExerciseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

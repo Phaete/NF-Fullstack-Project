@@ -1,4 +1,4 @@
-package com.phaete.backend.fitness;
+package com.phaete.backend.fitness.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
