@@ -142,7 +142,7 @@ public class ExerciseControllerIntegrationTest {
 	void deleteExercise_successfullyDeleteExercise() throws Exception {
 		exerciseRepository.save(new Exercise("1", "test", "test", "test", "test", "test", "test"));
 
-		mockMvc.perform(MockMvcRequestBuilders.delete("api/fitness/1"))
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/fitness/1"))
 				.andExpect(status().isOk());
 
 		assertTrue(exerciseRepository.findById("1").isEmpty());
