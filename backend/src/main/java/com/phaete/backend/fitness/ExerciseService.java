@@ -1,4 +1,4 @@
-package com.phaete.backend.Fitness;
+package com.phaete.backend.fitness;
 
 import org.springframework.stereotype.Service;
 
@@ -28,11 +28,12 @@ public class ExerciseService {
     }
 
     public Exercise save(ExerciseDTO exerciseDTO) {
-        return exerciseRepository.save(Exercise.fromDTO(exerciseDTO, idService.generateId()));
+        return exerciseRepository.save(exerciseDTO.fromDTO(idService.generateId()));
     }
 
     public Exercise update(ExerciseDTO exerciseDTO, String id) {
-        return exerciseRepository.save(Exercise.fromDTO(exerciseDTO, id));
+        findById(id);
+        return exerciseRepository.save(exerciseDTO.fromDTO(id));
     }
 
     public void deleteById(String id){

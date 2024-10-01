@@ -1,4 +1,4 @@
-package com.phaete.backend.Fitness;
+package com.phaete.backend.fitness;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

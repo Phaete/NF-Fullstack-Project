@@ -1,4 +1,4 @@
-package com.phaete.backend.Fitness;
+package com.phaete.backend.fitness;
 
 public enum ExerciseStatus {
     OPEN,
