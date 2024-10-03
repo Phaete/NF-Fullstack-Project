@@ -180,7 +180,7 @@ const StyledInput = styled.input`
     font-size: 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
-    width: 100%;
+    width: 95%;
 
     &:focus {
         outline: none;
