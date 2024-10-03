@@ -153,6 +153,7 @@ const StyledContainer = styled.div`
     min-height: 100vh;
     padding: 20px;
     background-color: #f7f9fc;
+    margin-bottom: 50px;
 `
 
 const StyledDiv = styled.div`
@@ -171,7 +172,7 @@ const StyledForm = styled.form`
     border-radius: 10px;
     background-color: #ffffff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
+    width: 90%;
     max-width: 400px;
 `
 

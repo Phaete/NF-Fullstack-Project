@@ -5,6 +5,8 @@ import { Route, Routes} from "react-router-dom";
 import CardComponent from "./components/cardcomponent/CardComponent.tsx";
 import MainPage from "./pages/MainPage.tsx";
 import HomePage from "./pages/HomePage.tsx";
+import Navbar from "./components/Navbar/Navbar.tsx";
+import Footer from "./components/footer/Footer.tsx";
 
 
 export type Exercise = {
@@ -59,6 +61,7 @@ export default function App() {
         return (
             <>
                 <GlobalStyles/>
+                <Navbar/>
                 <Routes>
                     <Route path={"/"} element={
                         <HomePage />
@@ -78,6 +81,7 @@ export default function App() {
                         <CardComponent/>
                     }></Route>
                 </Routes>
+                <Footer/>
             </>
         );
     }
