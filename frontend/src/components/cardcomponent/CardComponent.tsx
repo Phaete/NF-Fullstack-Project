@@ -45,6 +45,8 @@ const StyledCardWrapper = styled.div`
     height: 100vh;
     background-color: #f7f9fc;
     padding: 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 `;
 
 const StyledCard = styled.div`
