@@ -2,6 +2,8 @@ import axios from "axios";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import {Exercise} from "../App.tsx";
+import ListCard from "../components/listcard/ListCard.tsx";
+import {Box} from "@mui/material";
 
 type MainPageProps = {
     exercises: Exercise[];
@@ -59,26 +61,14 @@ export default function MainPage({
             <div>
                 <StyledDiv>
                     {exercises.map(exercise => (
-                        <StyledContainer2 key={exercise.id}>
-                            <StyledLink to={"/" + exercise.id}>{exercise.name}</StyledLink>
-                            <ButtonContainer>
-                                <StyledButton
-                                    type="button"
-                                    onClick={() => axios.delete("api/fitness/" + exercise.id)
-                                        .then(() => fetchData())
-                                        .catch(err => console.error(err))}>
-                                    Delete
-                                </StyledButton>
-                                <StyledButton
-                                    type="button"
-                                    onClick={() => setUpdateExercise(exercise)}>
-                                    Update
-                                </StyledButton>
-                            </ButtonContainer>
-                        </StyledContainer2>
+                        <ListCard key={exercise.id}  exercise={exercise} setUpdateExercise={setUpdateExercise} fetchData={fetchData}/>
                     ))}
                 </StyledDiv>
 
+                <Box sx={{
+                    display:'flex',
+                    flexDirection:'row'
+                }}>
                 <StyledForm onSubmit={handleAddSubmit}>
                     <StyledInput
                         type="text"
@@ -122,6 +112,7 @@ export default function MainPage({
                     />
                     <StyledButton type="submit">Update</StyledButton>
                 </StyledForm>
+                </Box>
             </div>
             <StyledLink to={"/"}>Zurück</StyledLink>
         </StyledContainer>
@@ -151,9 +142,9 @@ const StyledContainer = styled.div`
     align-items: center;
     justify-content: space-around;
     min-height: 100vh;
-    padding: 20px;
+    padding: 10px;
     background-color: #f7f9fc;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 `
 
 const StyledDiv = styled.div`
@@ -161,6 +152,8 @@ const StyledDiv = styled.div`
     flex-direction: column;
     gap: 20px;
     margin-bottom: 50px;
+    overflow: auto;
+    max-height: 500px;
 `
 
 const StyledForm = styled.form`
@@ -202,22 +195,5 @@ const StyledButton = styled.button`
     &:hover {
         background-color: #2980b9;
     }
-`
-
-const StyledContainer2 = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-`
-
-const ButtonContainer = styled.div`
-    display: flex;
-    gap: 10px;
 `
 
