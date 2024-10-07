@@ -2,6 +2,7 @@ import {Exercise} from "../../App.tsx";
 import {Box, Button, Card, Collapse, Typography} from "@mui/material";
 import {useState} from "react";
 import axios from "axios";
+import styled from "styled-components";
 
 type ListCardProps = {
     exercise: Exercise
@@ -31,7 +32,7 @@ export default function ListCard(props: ListCardProps) {
                     padding: '16px',
                 }}
             >
-                <Typography variant="h6">{props.exercise.name}</Typography>
+                <Typography variant="h5"><strong>{props.exercise.name}</strong></Typography>
                 <Button
                     aria-expanded={expanded}
                     aria-label="show more"
@@ -85,12 +86,25 @@ export default function ListCard(props: ListCardProps) {
                         Edit
                     </Button>
                 </Box>
-                <Typography>{props.exercise.difficulty}</Typography>
-                <Typography>{props.exercise.equipment}</Typography>
-                <Typography>{props.exercise.type}</Typography>
-                <Typography>{props.exercise.muscle}</Typography>
-                <Typography>{props.exercise.instructions}</Typography>
+                <StyledSingleCard>
+                <Typography sx={{marginBottom: '16px'}}><strong>Difficulty:</strong> {props.exercise.difficulty}
+                </Typography>
+                <Typography sx={{marginBottom: '16px'}}><strong>Equipment:</strong> {props.exercise.equipment}
+                </Typography>
+                <Typography sx={{marginBottom: '16px'}}><strong>Type:</strong> {props.exercise.type}</Typography>
+                <Typography sx={{marginBottom: '16px'}}><strong>Muscle:</strong> {props.exercise.muscle}</Typography>
+                <Typography sx={{marginBottom: '16px'}}><strong>Description:</strong><br/>{props.exercise.instructions}
+                </Typography>
+                </StyledSingleCard>
             </Collapse>
         </Card>
     );
 }
+
+const StyledSingleCard = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 5px 50px 15px 50px;
+`;
