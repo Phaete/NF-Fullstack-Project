@@ -7,7 +7,7 @@ import styled from "styled-components";
 type ListCardProps = {
     exercise: Exercise
     fetchData:() => void
-    setUpdateExercise: (e:Exercise) => void
+    dialogUpdate: (e:Exercise) => void
 }
 
 export default function ListCard(props: ListCardProps) {
@@ -81,7 +81,8 @@ export default function ListCard(props: ListCardProps) {
                                 },
                             }}
 
-                            onClick={() => props.setUpdateExercise(props.exercise)}>
+                            onClick={() =>
+                            {props.dialogUpdate(props.exercise)}}>
                         Edit
                     </Button>
                 </Box>

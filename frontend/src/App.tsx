@@ -23,24 +23,6 @@ export default function App() {
 
 
     const [exercises, setExercises] = useState<Exercise[]>([])
-    const [addExercise, setAddExercise] = useState<Exercise>({
-        id: "",
-        name: "",
-        type: "",
-        muscle: "",
-        instructions: "",
-        equipment: "",
-        difficulty: ""
-    })
-    const [updateExercise, setUpdateExercise] = useState<Exercise>({
-        id: "",
-        name: "",
-        type: "",
-        muscle: "",
-        instructions: "",
-        equipment: "",
-        difficulty: ""
-    })
 
 
     function fetchData() {
@@ -70,10 +52,6 @@ export default function App() {
                         <MainPage
                         exercises={exercises}
                         fetchData={fetchData}
-                        setUpdateExercise={setUpdateExercise}
-                        addExercise={addExercise}
-                        setAddExercise={setAddExercise}
-                        updateExercise={updateExercise}
                         />
                     }>
                     </Route>
