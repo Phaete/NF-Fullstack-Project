@@ -167,6 +167,7 @@ const StyledForm = styled.form`
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 90%;
     max-width: 400px;
+    margin:10px;
 `
 
 const StyledInput = styled.input`

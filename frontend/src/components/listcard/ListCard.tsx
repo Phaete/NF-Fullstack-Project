@@ -37,6 +37,14 @@ export default function ListCard(props: ListCardProps) {
                     aria-label="show more"
                     onClick={toggleExpanded}
                     variant="contained"
+                    sx={{
+                        backgroundColor: '#3498db',
+                        color: '#fff',
+                        '&:hover': {
+                            backgroundColor: '#2980b9',
+                        },
+                    }}
+
                 >
                     {expanded ? 'Collapse' : 'Expand'}
                 </Button>
@@ -49,6 +57,13 @@ export default function ListCard(props: ListCardProps) {
                     gap:0.5
                 }}>
                     <Button variant="contained"
+                            sx={{
+                                backgroundColor: '#3498db',
+                                color: '#fff',
+                                '&:hover': {
+                                    backgroundColor: '#2980b9',
+                                },
+                            }}
                             onClick={
                         () => axios.delete("api/fitness/" + props.exercise.id)
                         .then(() => props.fetchData())
@@ -56,7 +71,16 @@ export default function ListCard(props: ListCardProps) {
                     >
                         Delete
                     </Button>
-                    <Button variant="contained" onClick={() => props.setUpdateExercise(props.exercise)}>
+                    <Button variant="contained"
+                            sx={{
+                                backgroundColor: '#3498db',
+                                color: '#fff',
+                                '&:hover': {
+                                    backgroundColor: '#2980b9',
+                                },
+                            }}
+
+                            onClick={() => props.setUpdateExercise(props.exercise)}>
                         Edit
                     </Button>
                 </Box>
