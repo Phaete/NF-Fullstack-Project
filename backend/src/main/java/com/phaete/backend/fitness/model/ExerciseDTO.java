@@ -9,6 +9,7 @@ public record ExerciseDTO(String name,
 
     public Exercise fromDTO(String id) {
         return new Exercise(id, this.name(), this.type(),
-                this.muscle(), this.equipment(), this.difficulty(), this.instructions());
+                this.muscle(), this.equipment(), this.difficulty(),
+                this.instructions());
     }
 }
