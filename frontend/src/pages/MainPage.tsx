@@ -2,16 +2,17 @@ import styled from "styled-components";
 import {Link} from "react-router-dom";
 import {Exercise} from "../App.tsx";
 import ListCard from "../components/listcard/ListCard.tsx";
-import {Button} from "@mui/material";
+import {Fab} from "@mui/material";
 import ExerciseDialog from "../components/exerciseDialog/ExerciseDialog.tsx";
 import {useState} from "react";
+import AddIcon from '@mui/icons-material/Add';
 
 type MainPageProps = {
     exercises: Exercise[];
     fetchData: () => void;
 }
 
-const emptyExercise:Exercise = {
+const emptyExercise: Exercise = {
     id: "",
     name: "",
     type: "",
@@ -26,31 +27,41 @@ export default function MainPage({
                                      fetchData,
                                  }: MainPageProps) {
 
-    const [addDialogOpen,setAddDialogOpen] = useState(false);
-    const [editDialogOpen,setEditDialogOpen] = useState(false);
-    const [dialogUpdateExercise,setDialogUpdateExercise] = useState(emptyExercise)
+    const [addDialogOpen, setAddDialogOpen] = useState(false);
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
+    const [dialogUpdateExercise, setDialogUpdateExercise] = useState(emptyExercise)
 
 
-    function openEditDialog(exercise:Exercise){
+    function openEditDialog(exercise: Exercise) {
         setDialogUpdateExercise(exercise)
         setEditDialogOpen(true)
     }
 
 
     return (
-        <StyledContainer>
-            <div>
-                <Button onClick={() => setAddDialogOpen(true)}>Test Add</Button>
-                <StyledDiv>
-                    {exercises.map(exercise => (
-                        <ListCard key={exercise.id}  exercise={exercise} fetchData={fetchData} dialogUpdate={openEditDialog}/>
-                    ))}
-                </StyledDiv>
-            </div>
-            <StyledLink to={"/"}>Zurück</StyledLink>
-            <ExerciseDialog startingValue={emptyExercise} open={addDialogOpen} setOpen={setAddDialogOpen} fetchData={fetchData} dialogType={"ADD"}/>
-            <ExerciseDialog startingValue={dialogUpdateExercise} open={editDialogOpen} setOpen={setEditDialogOpen} fetchData={fetchData} dialogType={"UPDATE"}/>
-        </StyledContainer>
+        <>
+            <StyledContainer>
+                <div>
+                    <StyledDiv>
+                        {exercises.map(exercise => (
+                            <ListCard key={exercise.id} exercise={exercise} fetchData={fetchData}
+                                      dialogUpdate={openEditDialog}/>
+                        ))}
+                    </StyledDiv>
+                </div>
+                <StyledLink to={"/"}>Zurück</StyledLink>
+                <ExerciseDialog startingValue={emptyExercise} open={addDialogOpen} setOpen={setAddDialogOpen}
+                                fetchData={fetchData} dialogType={"ADD"}/>
+                <ExerciseDialog startingValue={dialogUpdateExercise} open={editDialogOpen} setOpen={setEditDialogOpen}
+                                fetchData={fetchData} dialogType={"UPDATE"}/>
+            </StyledContainer>
+            <Fab sx={{
+                position: "fixed",
+                bottom: 70,
+                right: 50
+            }} onClick={() =>setAddDialogOpen(true)}> <AddIcon/></Fab>
+        </>
+
     )
 
 }
