@@ -25,6 +25,7 @@ export default function LandingPage() {
                             <img className={"scaled-img"} src={"src/assets/workout.png"} alt={"Workout Manager"}/>
                         </button>
                     </StyledLink>
+
                     <p>
                         Workout Manager
                     </p>

@@ -73,6 +73,29 @@ class WorkoutControllerIntegrationTest {
                     }
                     """));
 	}
+
+	@DirtiesContext
+	@Test
+	void createWorkout() throws Exception {
+		mockMvc.perform(
+						MockMvcRequestBuilders.post("/api/workouts")
+							.contentType(MediaType.APPLICATION_JSON)
+							.content("""
+						  {
+							  "name": "testname",
+							  "workoutlist": []
+						  }
+						""")
+				)
+				.andExpect(status().isOk())
+				.andExpect(content().json("""
+				{
+					"name": "testname",
+					"workoutlist": []
+				}
+				"""));
+	}
+
 	@DirtiesContext
 	@Test
 	void updateWorkout() throws Exception {
