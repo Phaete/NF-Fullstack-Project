@@ -47,7 +47,7 @@ class WorkoutControllerIntegrationTest {
                         {
                             "id": "1",
                             "name": "testname",
-                            "workoutlist": []
+                            "workoutList": []
                         }
                     ]
                     """));}
@@ -69,7 +69,7 @@ class WorkoutControllerIntegrationTest {
 				.andExpect(content().json("""
                     {
                         "name": "testname",
-                        "workoutlist": []
+                        "workoutList": []
                     }
                     """));
 	}
@@ -83,7 +83,7 @@ class WorkoutControllerIntegrationTest {
 							.content("""
 						  {
 							  "name": "testname",
-							  "workoutlist": []
+							  "workoutList": []
 						  }
 						""")
 				)
@@ -91,7 +91,7 @@ class WorkoutControllerIntegrationTest {
 				.andExpect(content().json("""
 				{
 					"name": "testname",
-					"workoutlist": []
+					"workoutList": []
 				}
 				"""));
 	}
@@ -107,7 +107,7 @@ class WorkoutControllerIntegrationTest {
 							.content("""
                           {
                               "name": "new name",
-                              "workoutlist": []
+                              "workoutList": []
                           }
                         """)
 				)
@@ -115,7 +115,7 @@ class WorkoutControllerIntegrationTest {
 				.andExpect(content().json("""
 				{
 					"name": "new name",
-					"workoutlist": []
+					"workoutList": []
 				}
 				"""));
 	}
@@ -149,7 +149,7 @@ class WorkoutControllerIntegrationTest {
 					{
 					"id": "1",
 					"name": "testname",
-					"workoutlist": []
+					"workoutList": []
 					}
 				]
 """));

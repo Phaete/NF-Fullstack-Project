@@ -8,9 +8,9 @@ import java.util.List;
 public record Workout(
         String id,
         String name,
-        List<WorkoutListItem> workoutlist
+        List<WorkoutListItem> workoutList
 ) {
     public WorkoutDTO toDTO() {
-        return new WorkoutDTO(this.name(), this.workoutlist());
+        return new WorkoutDTO(this.name(), this.workoutList());
     }
 }
