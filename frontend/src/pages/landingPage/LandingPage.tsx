@@ -6,7 +6,7 @@ export default function LandingPage() {
     return (
         <StyledContainer>
             <StyledHeadline>
-                This is a beautiful headline for the Fitness Tracker App
+                Fitness Tracker App
             </StyledHeadline>
             <div className={"centered direction-col-row-row flex-2"}>
                 <div className={"centered direction-col"}>
@@ -43,7 +43,7 @@ const StyledContainer = styled.div`
     justify-content: center;
     height: 80vh;
     background-color: #f7f9fc;
-    padding: 20px;
+    padding: 20px 20px 40px;
 `
 
 const StyledLink = styled(Link)`
