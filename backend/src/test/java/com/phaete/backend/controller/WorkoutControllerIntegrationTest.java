@@ -114,7 +114,7 @@ class WorkoutControllerIntegrationTest {
 		workoutRepository.save(new Workout("1", "testname", List.of()));
 		workoutRepository.save(new Workout("2", "another testname", List.of()));
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/list")
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/workouts/list")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("""
 					{
