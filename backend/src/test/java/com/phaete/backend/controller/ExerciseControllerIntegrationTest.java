@@ -28,7 +28,7 @@ public class ExerciseControllerIntegrationTest {
 	@DirtiesContext
 	@Test
 	void findAll_returnEmpty_ifDBEmpty() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/fitness"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/exercise"))
 				.andExpect(status().isOk())
 				.andExpect(content().json("[]"));
 	}
@@ -38,7 +38,7 @@ public class ExerciseControllerIntegrationTest {
 	void findAll_getExercise_withExerciseInDB() throws Exception {
 		exerciseRepository.save(new Exercise("1", "test", "test", "test", "test", "test", "test"));
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/fitness"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/exercise"))
 				.andExpect(status().isOk())
 				.andExpect(content().json("""
 					[
@@ -54,7 +54,7 @@ public class ExerciseControllerIntegrationTest {
 	@Test
 	void save_shouldReturnNewExercise() throws Exception {
 		mockMvc.perform(
-				MockMvcRequestBuilders.post("/api/fitness")
+				MockMvcRequestBuilders.post("/api/exercise")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content("""
 							{
@@ -83,7 +83,7 @@ public class ExerciseControllerIntegrationTest {
 	@DirtiesContext
 	@Test
 	void findById_shouldThrow_onEmptyDB() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/fitness/1"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/exercise/1"))
 				.andExpect(status().isNotFound());
 	}
 
@@ -92,7 +92,7 @@ public class ExerciseControllerIntegrationTest {
 	void findById_shouldReturnExercise() throws Exception {
 		exerciseRepository.save(new Exercise("1", "test", "test", "test", "test", "test", "test"));
 
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/fitness/1"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/exercise/1"))
 				.andExpect(status().isOk())
 				.andExpect(content().json("""
 							{
@@ -111,7 +111,7 @@ public class ExerciseControllerIntegrationTest {
 		exerciseRepository.save(new Exercise("1", "test", "test", "test", "test", "test", "test"));
 
 		mockMvc.perform(
-						MockMvcRequestBuilders.put("/api/fitness/1")
+						MockMvcRequestBuilders.put("/api/exercise/1")
 								.contentType(MediaType.APPLICATION_JSON)
 								.content("""
 							{
@@ -142,7 +142,7 @@ public class ExerciseControllerIntegrationTest {
 	void deleteExercise_successfullyDeleteExercise() throws Exception {
 		exerciseRepository.save(new Exercise("1", "test", "test", "test", "test", "test", "test"));
 
-		mockMvc.perform(MockMvcRequestBuilders.delete("/api/fitness/1"))
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/exercise/1"))
 				.andExpect(status().isOk());
 
 		assertTrue(exerciseRepository.findById("1").isEmpty());

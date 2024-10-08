@@ -15,56 +15,56 @@ import static org.mockito.Mockito.*;
 
 class ExerciseServiceTest {
 
-	private final ExerciseRepository exerciseRepository = mock(ExerciseRepository.class);
-	private final IdService idService = mock(IdService.class);
+    private final ExerciseRepository exerciseRepository = mock(ExerciseRepository.class);
+    private final IdService idService = mock(IdService.class);
 
-	@Test
-	void findAll() {
-		List<Exercise> expectedExerciseList = List.of(new Exercise("1", "test", "test", "test", "test", "test", "test"));
-		when(exerciseRepository.findAll()).thenReturn(expectedExerciseList);
+    @Test
+    void findAll() {
+        List<Exercise> expectedExerciseList = List.of(new Exercise("1", "test", "test", "test", "test", "test", "test"));
+        when(exerciseRepository.findAll()).thenReturn(expectedExerciseList);
 
-		ExerciseService exerciseService = new ExerciseService(exerciseRepository, idService);
+        ExerciseService exerciseService = new ExerciseService(exerciseRepository, idService);
 
-		List<Exercise> actualExerciseList = exerciseService.findAll();
-		verify(exerciseRepository).findAll();
-		assertEquals(actualExerciseList, expectedExerciseList);
-	}
+        List<Exercise> actualExerciseList = exerciseService.findAll();
+        verify(exerciseRepository).findAll();
+        assertEquals(actualExerciseList, expectedExerciseList);
+    }
 
-	@Test
-	void findById() {
-		Exercise expectedExercise = new Exercise("1", "test", "test", "test", "test", "test", "test");
-		when(exerciseRepository.findById("1")).thenReturn(java.util.Optional.of(expectedExercise));
+    @Test
+    void findById() {
+        Exercise expectedExercise = new Exercise("1", "test", "test", "test", "test", "test", "test");
+        when(exerciseRepository.findById("1")).thenReturn(Optional.of(expectedExercise));
 
-		ExerciseService exerciseService = new ExerciseService(exerciseRepository, idService);
+        ExerciseService exerciseService = new ExerciseService(exerciseRepository, idService);
 
-		Exercise actualExercise = exerciseService.findById("1");
-		verify(exerciseRepository).findById("1");
-		assertEquals(actualExercise, expectedExercise);
-	}
+        Exercise actualExercise = exerciseService.findById("1");
+        verify(exerciseRepository).findById("1");
+        assertEquals(actualExercise, expectedExercise);
+    }
 
-	@Test
-	void save() {
-		Exercise expectedExercise = new Exercise("1", "test", "test", "test", "test", "test", "test");
-		when(exerciseRepository.save(any(Exercise.class))).thenReturn(expectedExercise);
-		when(idService.generateId()).thenReturn("1");
+    @Test
+    void save() {
+        Exercise expectedExercise = new Exercise("1", "test", "test", "test", "test", "test", "test");
+        when(exerciseRepository.save(any(Exercise.class))).thenReturn(expectedExercise);
+        when(idService.generateId()).thenReturn("1");
 
-		ExerciseService exerciseService = new ExerciseService(exerciseRepository, idService);
+        ExerciseService exerciseService = new ExerciseService(exerciseRepository, idService);
 
-		Exercise actualExercise = exerciseService.save(new ExerciseDTO("test", "test", "test", "test", "test", "test"));
-		verify(exerciseRepository).save(any(Exercise.class));
-		assertEquals(actualExercise, expectedExercise);
-	}
+        Exercise actualExercise = exerciseService.save(new ExerciseDTO("test", "test", "test", "test", "test", "test"));
+        verify(exerciseRepository).save(any(Exercise.class));
+        assertEquals(actualExercise, expectedExercise);
+    }
 
-	@Test
-	void update() {
-		Exercise expectedExercise = new Exercise("1", "test", "test", "test", "test", "test", "test");
-		when(exerciseRepository.findById("1")).thenReturn(Optional.of(new Exercise("1", "test123", "test", "test", "test", "test", "test")));
-		when(exerciseRepository.save(any(Exercise.class))).thenReturn(expectedExercise);
+    @Test
+    void update() {
+        Exercise expectedExercise = new Exercise("1", "test", "test", "test", "test", "test", "test");
+        when(exerciseRepository.findById("1")).thenReturn(Optional.of(new Exercise("1", "test123", "test", "test", "test", "test", "test")));
+        when(exerciseRepository.save(any(Exercise.class))).thenReturn(expectedExercise);
 
-		ExerciseService exerciseService = new ExerciseService(exerciseRepository, idService);
+        ExerciseService exerciseService = new ExerciseService(exerciseRepository, idService);
 
-		Exercise actualExercise = exerciseService.update(new ExerciseDTO("test", "test", "test", "test", "test", "test"), "1");
-		verify(exerciseRepository).save(any(Exercise.class));
-		assertEquals(actualExercise, expectedExercise);
-	}
+        Exercise actualExercise = exerciseService.update(new ExerciseDTO("test", "test", "test", "test", "test", "test"), "1");
+        verify(exerciseRepository).save(any(Exercise.class));
+        assertEquals(actualExercise, expectedExercise);
+    }
 }
