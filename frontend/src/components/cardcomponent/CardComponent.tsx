@@ -18,7 +18,7 @@ export default function CardComponent() {
     });
 
     useEffect(() => {
-        axios.get<Exercise>("api/fitness/" + id)
+        axios.get<Exercise>("api/exercise/" + id)
             .then(response => setExercise(response.data));
     }, [id]);
 

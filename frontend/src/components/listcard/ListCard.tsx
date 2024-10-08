@@ -66,7 +66,7 @@ export default function ListCard(props: ListCardProps) {
                                 },
                             }}
                             onClick={
-                        () => axios.delete("api/fitness/" + props.exercise.id)
+                        () => axios.delete("api/exercise/" + props.exercise.id)
                         .then(() => props.fetchData())
                         .catch(err => console.error(err))}
                     >

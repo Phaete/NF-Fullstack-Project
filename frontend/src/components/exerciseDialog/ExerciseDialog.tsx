@@ -28,11 +28,11 @@ export default function ExerciseDialog(props: ExerciseDialogProps) {
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         if(props.dialogType==="ADD"){
-            axios.post("/api/fitness",exercise)
+            axios.post("/api/exercise",exercise)
                 .then(props.fetchData)
                 .catch(err => console.error(err))
         } else if(props.dialogType==="UPDATE"){
-            axios.put("/api/fitness/"+props.startingValue.id,exercise)
+            axios.put("/api/exercise/"+props.startingValue.id,exercise)
                 .then(props.fetchData)
                 .catch(err => console.error(err))
         }
