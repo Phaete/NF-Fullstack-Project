@@ -26,7 +26,7 @@ export default function App() {
 
 
     function fetchData() {
-        axios.get("api/fitness")
+        axios.get("api/exercise")
             .then(response => setExercises(response.data))
             .catch(err => console.error(err))
     }
