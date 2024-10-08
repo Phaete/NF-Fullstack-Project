@@ -117,9 +117,7 @@ class WorkoutControllerIntegrationTest {
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/workouts/list")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("""
-					{
-						"ids": ["1"]
-					}
+					["1"]
 				""")
 		)
 				.andExpect(status().isOk())
