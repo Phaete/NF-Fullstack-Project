@@ -1,16 +1,13 @@
+import "./ExerciseBrowser.css/"
+import {ExerciseBrowserProps} from "./ExerciseBrowserProps.ts"
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import {Exercise} from "../App.tsx";
-import ListCard from "../components/listcard/ListCard.tsx";
+import ListCard from "../../components/listcard/ListCard.tsx";
+import ExerciseDialog from "../../components/exerciseDialog/ExerciseDialog.tsx";
 import {Fab} from "@mui/material";
-import ExerciseDialog from "../components/exerciseDialog/ExerciseDialog.tsx";
+import AddIcon from "@mui/icons-material/Add";
 import {useState} from "react";
-import AddIcon from '@mui/icons-material/Add';
-
-type MainPageProps = {
-    exercises: Exercise[];
-    fetchData: () => void;
-}
+import {Exercise} from "../../App.tsx";
 
 const emptyExercise: Exercise = {
     id: "",
@@ -22,10 +19,7 @@ const emptyExercise: Exercise = {
     difficulty: ""
 }
 
-export default function MainPage({
-                                     exercises,
-                                     fetchData,
-                                 }: MainPageProps) {
+export default function ExerciseBrowser(props: Readonly<ExerciseBrowserProps>) {
 
     const [addDialogOpen, setAddDialogOpen] = useState(false);
     const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -43,17 +37,17 @@ export default function MainPage({
             <StyledContainer>
                 <div>
                     <StyledDiv>
-                        {exercises.map(exercise => (
-                            <ListCard key={exercise.id} exercise={exercise} fetchData={fetchData}
+                        {props.exercises.map(exercise => (
+                            <ListCard key={exercise.id} exercise={exercise} fetchData={props.fetchData}
                                       dialogUpdate={openEditDialog}/>
                         ))}
                     </StyledDiv>
                 </div>
                 <StyledLink to={"/"}>Zurück</StyledLink>
                 <ExerciseDialog startingValue={emptyExercise} open={addDialogOpen} setOpen={setAddDialogOpen}
-                                fetchData={fetchData} dialogType={"ADD"}/>
+                                fetchData={props.fetchData} dialogType={"ADD"}/>
                 <ExerciseDialog startingValue={dialogUpdateExercise} open={editDialogOpen} setOpen={setEditDialogOpen}
-                                fetchData={fetchData} dialogType={"UPDATE"}/>
+                                fetchData={props.fetchData} dialogType={"UPDATE"}/>
             </StyledContainer>
             <Fab sx={{
                 position: "fixed",
@@ -61,10 +55,10 @@ export default function MainPage({
                 right: 50
             }} onClick={() =>setAddDialogOpen(true)}> <AddIcon/></Fab>
         </>
-
     )
 
 }
+
 
 const StyledLink = styled(Link)`
     text-decoration: none;

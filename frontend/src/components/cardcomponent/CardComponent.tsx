@@ -32,7 +32,7 @@ export default function CardComponent() {
                 <StyledCardDetail><strong>Equipment:</strong> {exercise.equipment}</StyledCardDetail>
                 <StyledCardDetail><strong>Difficulty:</strong> {exercise.difficulty}</StyledCardDetail>
             </StyledCard>
-            <StyledLink to={"/mainpage"}>Zurück</StyledLink>
+            <StyledLink to={"/exercises"}>Zurück</StyledLink>
         </StyledCardWrapper>
     );
 }

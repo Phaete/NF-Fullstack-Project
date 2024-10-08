@@ -3,15 +3,14 @@ import {Link} from "react-router-dom";
 
 export default function Navbar(){
     return (
-        <>
         <StyledNavbar>
             <StyledLogo>FitnessApp</StyledLogo>
             <StyledNavItems>
                 <StyledNavItem to={"/"}>Home</StyledNavItem>
-                <StyledNavItem to={"/mainpage"}>Übungen</StyledNavItem>
+                <StyledNavItem to={"/exercises"}>Exercises</StyledNavItem>
+                <StyledNavItem to={"/workout"}>Workouts</StyledNavItem>
             </StyledNavItems>
         </StyledNavbar>
-        </>
     )
 }
 

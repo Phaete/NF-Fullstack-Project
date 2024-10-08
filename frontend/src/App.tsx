@@ -3,10 +3,10 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import { Route, Routes} from "react-router-dom";
 import CardComponent from "./components/cardcomponent/CardComponent.tsx";
-import MainPage from "./pages/MainPage.tsx";
-import HomePage from "./pages/HomePage.tsx";
 import Navbar from "./components/Navbar/Navbar.tsx";
 import Footer from "./components/footer/Footer.tsx";
+import LandingPage from "./pages/landingPage/LandingPage.tsx";
+import ExerciseBrowser from "./pages/exercise_browser/ExerciseBrowser.tsx";
 
 
 export type Exercise = {
@@ -31,14 +31,9 @@ export default function App() {
             .catch(err => console.error(err))
     }
 
-
     useEffect(() => {
         fetchData()
     }, []);
-
-
-
-
 
         return (
             <>
@@ -46,18 +41,17 @@ export default function App() {
                 <Navbar/>
                 <Routes>
                     <Route path={"/"} element={
-                        <HomePage />
+                        <LandingPage />
                     }/>
-                    <Route path={"/mainpage"} element={
-                        <MainPage
-                        exercises={exercises}
-                        fetchData={fetchData}
+                    <Route path={"/exercises"} element={
+                        <ExerciseBrowser
+                            exercises={exercises}
+                            fetchData={fetchData}
                         />
-                    }>
-                    </Route>
+                    }/>
                     <Route path={"/:id"} element={
                         <CardComponent/>
-                    }></Route>
+                    }/>
                 </Routes>
                 <Footer/>
             </>
