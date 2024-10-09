@@ -6,7 +6,7 @@ export type Workout = {
     workoutList: WorkoutListItem[]
 }
 
-type WorkoutListItem= {
+export type WorkoutListItem= {
     exercise: Exercise,
     sets: number,
     reps: number,

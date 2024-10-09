@@ -16,10 +16,14 @@ export default function WorkoutPage() {
         setWorkout({id:"1", name:"Please select a workout!", workoutList: []})
     }
 
-    useEffect(() => {
+    function fetchData() {
         axios.get("api/workouts")
             .then(response => setWorkoutList(response.data))
             .catch(err => console.error(err))
+    }
+
+    useEffect(() => {
+        fetchData()
     }, []);
 
 
@@ -27,7 +31,7 @@ export default function WorkoutPage() {
         <div className={"centered flex flex-row align-center m-20"}>
             <div className={"h-80 flex-2 bordered"}>
             {newWorkout ? (
-                <AddWorkoutComponent setNewWorkout={setNewWorkout}/>
+                <AddWorkoutComponent setNewWorkout={setNewWorkout} fetchData={fetchData}/>
             ) : (
                 <>
                     <div>
