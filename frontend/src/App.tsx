@@ -21,9 +21,13 @@ export type Exercise = {
 
 export default function App() {
 
-
     const [exercises, setExercises] = useState<Exercise[]>([])
 
+    function login(){
+        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
+
+        window.open(host+'/oauth2/authorization/github', '_self')
+    }
 
     function fetchData() {
         axios.get("api/exercise")
@@ -38,7 +42,7 @@ export default function App() {
         return (
             <>
                 <GlobalStyles/>
-                <Navbar/>
+                <Navbar login={login}/>
                 <Routes>
                     <Route path={"/"} element={
                         <LandingPage />

@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 
-export default function Navbar(){
+type NavbarProps = {
+    login: () => void
+}
+
+export default function Navbar(props: Readonly<NavbarProps>){
+
+
     return (
         <StyledNavbar>
             <StyledLogo>FitnessApp</StyledLogo>
@@ -9,6 +15,7 @@ export default function Navbar(){
                 <StyledNavItem to={"/"}>Home</StyledNavItem>
                 <StyledNavItem to={"/exercises"}>Exercises</StyledNavItem>
                 <StyledNavItem to={"/workout"}>Workouts</StyledNavItem>
+                <button onClick={props.login}>Login</button>
             </StyledNavItems>
         </StyledNavbar>
     )
