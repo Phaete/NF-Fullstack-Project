@@ -8,7 +8,7 @@ export default function Navbar(){
             <StyledNavItems>
                 <StyledNavItem to={"/"}>Home</StyledNavItem>
                 <StyledNavItem to={"/exercises"}>Exercises</StyledNavItem>
-                <StyledNavItem to={"/workout"}>Workouts</StyledNavItem>
+                <StyledNavItem to={"/workouts"}>Workouts</StyledNavItem>
             </StyledNavItems>
         </StyledNavbar>
     )
