@@ -8,7 +8,7 @@ export default function Navbar(){
             <StyledNavItems>
                 <StyledNavItem to={"/"}>Home</StyledNavItem>
                 <StyledNavItem to={"/exercises"}>Exercises</StyledNavItem>
-                <StyledNavItem to={"/workout"}>Workouts</StyledNavItem>
+                <StyledNavItem to={"/workouts"}>Workouts</StyledNavItem>
             </StyledNavItems>
         </StyledNavbar>
     )
@@ -21,6 +21,7 @@ const StyledNavbar = styled.nav`
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
 `;
 
 const StyledLogo = styled.h1`
@@ -38,10 +39,15 @@ const StyledNavItems = styled.div`
 const StyledNavItem = styled(Link)`
     text-decoration: none;
     color: white;
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-weight: 500;
-    padding: 8px 16px;
+    padding: 4px 2px;
     transition: background-color 0.3s ease;
+
+    @media (min-width: 650px) {
+        font-size: 1.2rem;
+        padding: 8px 16px;
+    }
 
     &:hover {
         background-color: #34495e;

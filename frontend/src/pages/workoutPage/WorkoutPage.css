@@ -60,25 +60,11 @@
     margin-bottom: 5vh;
 }
 
-.direction-col-row-row{
-    flex-direction: column;
-
-    @media (min-width: 650px) {
-        flex-direction: row;
-    }
+.bordered {
+    border: 1px solid black;
+    border-radius: 10px;
 }
 
-.direction-col {
-    flex-direction: column;
-}
-
-.scaled-img {
-    object-fit: cover;
-    width: 30vw;
-    max-height: 256px;
-    max-width: 256px;
-
-    @media (min-width: 650px) {
-        width: 20vw;
-    }
+.float-br {
+    float: right;
 }

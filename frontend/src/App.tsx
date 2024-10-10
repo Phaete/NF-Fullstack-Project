@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar/Navbar.tsx";
 import Footer from "./components/footer/Footer.tsx";
 import LandingPage from "./pages/landingPage/LandingPage.tsx";
 import ExerciseBrowser from "./pages/exercise_browser/ExerciseBrowser.tsx";
+import WorkoutPage from "./pages/workoutPage/WorkoutPage.tsx";
 
 
 export type Exercise = {
@@ -51,6 +52,9 @@ export default function App() {
                     }/>
                     <Route path={"/:id"} element={
                         <CardComponent/>
+                    }/>
+                    <Route path={"/workouts"} element={
+                        <WorkoutPage/>
                     }/>
                 </Routes>
                 <Footer/>

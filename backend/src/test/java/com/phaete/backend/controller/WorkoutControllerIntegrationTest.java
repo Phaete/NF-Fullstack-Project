@@ -47,7 +47,7 @@ class WorkoutControllerIntegrationTest {
                         {
                             "id": "1",
                             "name": "testname",
-                            "workoutlist": []
+                            "workoutList": []
                         }
                     ]
                     """));}
@@ -69,10 +69,33 @@ class WorkoutControllerIntegrationTest {
 				.andExpect(content().json("""
                     {
                         "name": "testname",
-                        "workoutlist": []
+                        "workoutList": []
                     }
                     """));
 	}
+
+	@DirtiesContext
+	@Test
+	void createWorkout() throws Exception {
+		mockMvc.perform(
+						MockMvcRequestBuilders.post("/api/workouts")
+							.contentType(MediaType.APPLICATION_JSON)
+							.content("""
+						  {
+							  "name": "testname",
+							  "workoutList": []
+						  }
+						""")
+				)
+				.andExpect(status().isOk())
+				.andExpect(content().json("""
+				{
+					"name": "testname",
+					"workoutList": []
+				}
+				"""));
+	}
+
 	@DirtiesContext
 	@Test
 	void updateWorkout() throws Exception {
@@ -84,7 +107,7 @@ class WorkoutControllerIntegrationTest {
 							.content("""
                           {
                               "name": "new name",
-                              "workoutlist": []
+                              "workoutList": []
                           }
                         """)
 				)
@@ -92,7 +115,7 @@ class WorkoutControllerIntegrationTest {
 				.andExpect(content().json("""
 				{
 					"name": "new name",
-					"workoutlist": []
+					"workoutList": []
 				}
 				"""));
 	}
@@ -126,7 +149,7 @@ class WorkoutControllerIntegrationTest {
 					{
 					"id": "1",
 					"name": "testname",
-					"workoutlist": []
+					"workoutList": []
 					}
 				]
 """));

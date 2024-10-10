@@ -31,6 +31,12 @@ public class WorkoutController {
         return workout.toDTO();
     }
 
+    @PostMapping
+    WorkoutDTO createWorkout(@RequestBody WorkoutDTO workoutDTO) {
+        Workout workout = workoutService.save(workoutDTO);
+        return workout.toDTO();
+    }
+
     @PutMapping("/{id}")
     WorkoutDTO updateWorkout(@RequestBody WorkoutDTO workoutDTO, @PathVariable String id) {
         Workout updatedWorkout = workoutService.update(workoutDTO, id);
