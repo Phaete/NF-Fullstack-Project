@@ -4,6 +4,8 @@
 # Frontend
 /frontend/node_modules
 /frontend/dist
+./tsconfig.node.tsbuildinfo
+./tsconfig.app.tsbuildinfo
 
 # Backend
 /backend/mvnw.cmd
