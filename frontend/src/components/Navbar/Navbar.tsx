@@ -14,7 +14,7 @@ export default function Navbar(props: Readonly<NavbarProps>){
         <StyledNavbar>
             <StyledLogo>FitnessApp</StyledLogo>
             <StyledNavItems>
-                <StyledNavItem to={"/"}>Home</StyledNavItem>
+                <StyledNavItem to={"/dashboard"}>Home</StyledNavItem>
                 <StyledNavItem to={"/exercises"}>Exercises</StyledNavItem>
                 <StyledNavItem to={"/workouts"}>Workouts</StyledNavItem>
                 <p>Hello {props.username}</p>

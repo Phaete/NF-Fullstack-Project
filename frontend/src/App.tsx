@@ -5,9 +5,11 @@ import { Route, Routes} from "react-router-dom";
 import CardComponent from "./components/cardcomponent/CardComponent.tsx";
 import Navbar from "./components/Navbar/Navbar.tsx";
 import Footer from "./components/footer/Footer.tsx";
-import LandingPage from "./pages/landingPage/LandingPage.tsx";
+import Dashboard from "./pages/dashboard/Dashboard.tsx";
 import ExerciseBrowser from "./pages/exercise_browser/ExerciseBrowser.tsx";
 import WorkoutPage from "./pages/workoutPage/WorkoutPage.tsx";
+import LandingPage from "./pages/landingPage/LandingPage.tsx";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute.tsx";
 
 
 export type Exercise = {
@@ -59,19 +61,24 @@ export default function App() {
                 <Routes>
                     <Route path={"/"} element={
                         <LandingPage />
-                    }/>
-                    <Route path={"/exercises"} element={
-                        <ExerciseBrowser
-                            exercises={exercises}
-                            fetchData={fetchData}
-                        />
-                    }/>
-                    <Route path={"/:id"} element={
-                        <CardComponent/>
-                    }/>
-                    <Route path={"/workouts"} element={
-                        <WorkoutPage/>
-                    }/>
+                    } />
+                    <Route element={<ProtectedRoute username={username}/>}>
+                        <Route path={"/dashboard"} element={
+                            <Dashboard />
+                        }/>
+                        <Route path={"/exercises"} element={
+                            <ExerciseBrowser
+                                exercises={exercises}
+                                fetchData={fetchData}
+                            />
+                        }/>
+                        <Route path={"/:id"} element={
+                            <CardComponent/>
+                        }/>
+                        <Route path={"/workouts"} element={
+                            <WorkoutPage/>
+                        }/>
+                    </Route>
                 </Routes>
                 <Footer/>
             </>

@@ -68,3 +68,7 @@
 .float-br {
     float: right;
 }
+
+.no-dot {
+    list-style-type: none;
+}

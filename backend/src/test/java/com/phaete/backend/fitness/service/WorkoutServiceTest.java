@@ -5,8 +5,6 @@ import com.phaete.backend.fitness.model.Workout;
 import com.phaete.backend.fitness.model.WorkoutDTO;
 import com.phaete.backend.fitness.model.WorkoutListItem;
 import com.phaete.backend.fitness.repository.WorkoutRepository;
-import com.phaete.backend.fitness.service.IdService;
-import com.phaete.backend.fitness.service.WorkoutService;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -25,7 +23,7 @@ class WorkoutServiceTest {
         List<Workout> expectedWorkoutList = List.of(new Workout("1", "test",
                 List.of(new WorkoutListItem(new Exercise("1", "test", "test",
                         "test", "test", "test", "test"),
-                        2, 5,2.5,"kg"))));
+                        2, 5,2.5,"kg")), ""));
             when(workoutRepository.findAll()).thenReturn(expectedWorkoutList);
 
         WorkoutService workoutService = new WorkoutService(workoutRepository, idService);
@@ -39,7 +37,7 @@ class WorkoutServiceTest {
         Workout expectedWorkout = new Workout("1", "test",
                 List.of(new WorkoutListItem(new Exercise("1", "test", "test",
                         "test", "test", "test", "test"),
-                        2, 5,2.5,"kg")));
+                        2, 5,2.5,"kg")), "");
         when(workoutRepository.findById("1")).thenReturn(Optional.of(expectedWorkout));
 
         WorkoutService workoutService = new WorkoutService(workoutRepository, idService);
@@ -54,7 +52,7 @@ class WorkoutServiceTest {
         Workout expectedWorkout = new Workout("1", "test",
                 List.of(new WorkoutListItem(new Exercise("1", "test", "test",
                         "test", "test", "test", "test"),
-                        2, 5,2.5,"kg")));
+                        2, 5,2.5,"kg")), "");
         when(workoutRepository.save(any(Workout.class))).thenReturn(expectedWorkout);
         when(idService.generateId()).thenReturn("1");
 
@@ -72,11 +70,11 @@ class WorkoutServiceTest {
         Workout expectedWorkout = new Workout("1", "test",
                 List.of(new WorkoutListItem(new Exercise("1", "test", "test",
                         "test", "test", "test", "test"),
-                        2, 5,2.5,"kg")));
+                        2, 5,2.5,"kg")), "");
         when(workoutRepository.findById("1")).thenReturn(Optional.of(new Workout("1", "test",
                 List.of(new WorkoutListItem(new Exercise("1", "test123", "test",
                         "test", "test", "test", "test"),
-                        2, 5,2.5,"kg")))));
+                        2, 5,2.5,"kg")), "")));
         when(workoutRepository.save(any(Workout.class))).thenReturn(expectedWorkout);
 
         WorkoutService workoutService = new WorkoutService(workoutRepository, idService);
@@ -93,7 +91,7 @@ class WorkoutServiceTest {
         List<Workout> expectedWorkoutList = List.of(new Workout("1", "test",
                 List.of(new WorkoutListItem(new Exercise("1", "test", "test",
                         "test", "test", "test", "test"),
-                        2, 5,2.5,"kg"))));
+                        2, 5,2.5,"kg")), ""));
         when(workoutRepository.findAllById(List.of("1"))).thenReturn(expectedWorkoutList);
 
         WorkoutService workoutService = new WorkoutService(workoutRepository, idService);

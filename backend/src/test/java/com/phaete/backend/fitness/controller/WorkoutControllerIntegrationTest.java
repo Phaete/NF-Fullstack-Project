@@ -38,7 +38,7 @@ class WorkoutControllerIntegrationTest {
 	@DirtiesContext
 	@Test
 	void findAll_getWorkout_withWorkoutInDB() throws Exception {
-		workoutRepository.save(new Workout("1", "testname", List.of()));
+		workoutRepository.save(new Workout("1", "testname", List.of(), ""));
 
 		mockMvc.perform((MockMvcRequestBuilders.get("/api/workouts")))
 				.andExpect(status().isOk())
@@ -62,7 +62,7 @@ class WorkoutControllerIntegrationTest {
 	@DirtiesContext
 	@Test
 	void findById_shouldReturnWorkout() throws Exception {
-		workoutRepository.save(new Workout("1", "testname", List.of()));
+		workoutRepository.save(new Workout("1", "testname", List.of(), ""));
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/workouts/1"))
 				.andExpect(status().isOk())
@@ -99,7 +99,7 @@ class WorkoutControllerIntegrationTest {
 	@DirtiesContext
 	@Test
 	void updateWorkout() throws Exception {
-		workoutRepository.save(new Workout("1", "testname", List.of()));
+		workoutRepository.save(new Workout("1", "testname", List.of(), ""));
 
 		mockMvc.perform(
 						MockMvcRequestBuilders.put("/api/workouts/1")
@@ -123,7 +123,7 @@ class WorkoutControllerIntegrationTest {
 	@DirtiesContext
 	@Test
 	void deleteWorkout() throws Exception{
-		workoutRepository.save(new Workout("1", "testname", List.of()));
+		workoutRepository.save(new Workout("1", "testname", List.of(), ""));
 
 		mockMvc.perform(MockMvcRequestBuilders.delete("/api/workouts/1"))
 				.andExpect(status().isOk());
@@ -134,8 +134,8 @@ class WorkoutControllerIntegrationTest {
 	@DirtiesContext
 	@Test
 	void findAllByIds() throws Exception {
-		workoutRepository.save(new Workout("1", "testname", List.of()));
-		workoutRepository.save(new Workout("2", "another testname", List.of()));
+		workoutRepository.save(new Workout("1", "testname", List.of(), ""));
+		workoutRepository.save(new Workout("2", "another testname", List.of(), ""));
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/workouts/list")
 				.contentType(MediaType.APPLICATION_JSON)

@@ -43,7 +43,7 @@ export default function ExerciseBrowser(props: Readonly<ExerciseBrowserProps>) {
                         ))}
                     </StyledDiv>
                 </div>
-                <StyledLink to={"/"}>Zurück</StyledLink>
+                <StyledLink to={"/dashboard"}>Zurück</StyledLink>
                 <ExerciseDialog startingValue={emptyExercise} open={addDialogOpen} setOpen={setAddDialogOpen}
                                 fetchData={props.fetchData} dialogType={"ADD"}/>
                 <ExerciseDialog startingValue={dialogUpdateExercise} open={editDialogOpen} setOpen={setEditDialogOpen}

@@ -3,7 +3,6 @@ package com.phaete.backend.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -39,7 +38,7 @@ public class SecurityConfig {
 				)
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
 				.logout(logout -> logout.logoutSuccessUrl(appUrl).logoutUrl("/api/auth/logout"))
-				.oauth2Login(Customizer.withDefaults());
+				.oauth2Login(login -> login.defaultSuccessUrl(appUrl+"/dashboard"));
 
 		return httpSecurity.build();
 	}
