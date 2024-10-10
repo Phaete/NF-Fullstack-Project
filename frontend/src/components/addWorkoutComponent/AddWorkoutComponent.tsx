@@ -55,7 +55,7 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
         <>
             <form className={"flex flex-col m-10"}>
                 <p>Workout Name</p>
-                <input onChange={(event : ChangeEvent<HTMLInputElement>) => {
+                <input onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     setWorkout({
                             ...workout,
                             name: event.target.value
@@ -64,14 +64,23 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
                     console.log(workout)
                 }}/>
                 <p className={"mt-10"}>Exercises</p>
-                {workout.workoutList.map((exercise,index) =>
-                    <AddExerciseLine  exercise={exercise} index={index} workout={workout} setWorkout={setWorkout} exerciseList={exerciseList} key={index}/>)}
+                {workout.workoutList.map((exercise, index) =>
+                    <AddExerciseLine exercise={exercise} index={index} workout={workout} setWorkout={setWorkout}
+                                     exerciseList={exerciseList} key={index}/>)}
                 <button type={"button"} onClick={handleSubmit}>Save</button>
             </form>
             <button type={"button"} onClick={() => {
                 props.setNewWorkout(false)
                 resetForm()
-            }}>Cancel</button>
+            }}>Cancel
+            </button>
+            <button type={"button"} onClick={() => {
+                setWorkout({
+                    ...workout,
+                    workoutList:workout.workoutList.concat(dummyWorkoutItem)
+                })
+            }}>Add new exercise
+            </button>
         </>
     )
 }
