@@ -1,4 +1,4 @@
-package com.phaete.backend.controller;
+package com.phaete.backend.fitness.controller;
 
 import com.phaete.backend.fitness.model.Exercise;
 import com.phaete.backend.fitness.repository.ExerciseRepository;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ExerciseControllerIntegrationTest {
+class ExerciseControllerIntegrationTest {
 
 	@Autowired
 	private MockMvc mockMvc;

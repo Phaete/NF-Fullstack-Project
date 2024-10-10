@@ -1,4 +1,4 @@
-package com.phaete.backend.service;
+package com.phaete.backend.fitness.service;
 
 import com.phaete.backend.fitness.model.Exercise;
 import com.phaete.backend.fitness.model.Workout;

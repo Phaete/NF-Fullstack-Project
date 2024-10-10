@@ -1,5 +1,6 @@
 package com.phaete.backend.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -13,6 +14,19 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+	@Value("${APP_URL}")
+	private String appUrl;
+
+	/**
+	 * The security filter chain for the application. This handles all the
+	 * security-related configuration for the application. This is a bean so that
+	 * it can be autowired into the test classes.
+	 *
+	 * @param httpSecurity The {@link HttpSecurity} object to configure.
+	 * @return The security filter chain.
+	 * @throws Exception If there is an error while building the security filter
+	 * chain.
+	 */
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
@@ -24,7 +38,8 @@ public class SecurityConfig {
 						.anyRequest().permitAll() // This will handle all endpoints NOT specified, might be a security risk!
 				)
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
- 				.oauth2Login(Customizer.withDefaults());
+				.logout(logout -> logout.logoutSuccessUrl(appUrl).logoutUrl("/api/auth/logout"))
+				.oauth2Login(Customizer.withDefaults());
 
 		return httpSecurity.build();
 	}

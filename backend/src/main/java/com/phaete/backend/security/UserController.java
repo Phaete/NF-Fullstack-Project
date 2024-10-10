@@ -11,9 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class UserController {
 
+	/**
+	 * Get the username of the currently logged in user.
+	 *
+	 * @param user the OAuth2User associated with the current request
+	 * @return the username, or "anonymousUser" if no user is logged in
+	 */
 	@GetMapping("/me")
 	public String getMe(@AuthenticationPrincipal OAuth2User user) {
-		return user.getAttributes().get("login").toString(); // returns the username
+		return user != null ? user.getAttributes().get("login").toString() : "anonymousUser";
 	}
 
 	@GetMapping("/me2")

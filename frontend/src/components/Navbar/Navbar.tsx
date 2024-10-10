@@ -3,6 +3,8 @@ import {Link} from "react-router-dom";
 
 type NavbarProps = {
     login: () => void
+    logout: () => void
+    username: string
 }
 
 export default function Navbar(props: Readonly<NavbarProps>){
@@ -14,8 +16,9 @@ export default function Navbar(props: Readonly<NavbarProps>){
             <StyledNavItems>
                 <StyledNavItem to={"/"}>Home</StyledNavItem>
                 <StyledNavItem to={"/exercises"}>Exercises</StyledNavItem>
-                <StyledNavItem to={"/workout"}>Workouts</StyledNavItem>
-                <button onClick={props.login}>Login</button>
+                <StyledNavItem to={"/workouts"}>Workouts</StyledNavItem>
+                <p>Hello {props.username}</p>
+                {(!props.username || props.username === "anonymousUser") ? <button onClick={props.login}>Login</button> : <button onClick={props.logout}>Logout</button>}
             </StyledNavItems>
         </StyledNavbar>
     )
@@ -45,10 +48,15 @@ const StyledNavItems = styled.div`
 const StyledNavItem = styled(Link)`
     text-decoration: none;
     color: white;
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-weight: 500;
-    padding: 8px 16px;
+    padding: 4px 2px;
     transition: background-color 0.3s ease;
+
+    @media (min-width: 650px) {
+        font-size: 1.2rem;
+        padding: 8px 16px;
+    }
 
     &:hover {
         background-color: #34495e;
