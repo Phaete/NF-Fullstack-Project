@@ -17,8 +17,8 @@ export default function Navbar(props: Readonly<NavbarProps>){
                 <StyledNavItem to={"/dashboard"}>Home</StyledNavItem>
                 <StyledNavItem to={"/exercises"}>Exercises</StyledNavItem>
                 <StyledNavItem to={"/workouts"}>Workouts</StyledNavItem>
-                <p>Hello {props.username}</p>
-                {(!props.username || props.username === "anonymousUser") ? <button onClick={props.login}>Login</button> : <button onClick={props.logout}>Logout</button>}
+                <p style={{ color: "white", fontSize: "19px", marginTop: "7px" }}>Hello {props.username}</p>
+                {(!props.username || props.username === "anonymousUser") ? <StyledButton onClick={props.login}>Login</StyledButton> : <button onClick={props.logout}>Logout</button>}
             </StyledNavItems>
         </StyledNavbar>
     )
@@ -44,6 +44,12 @@ const StyledNavItems = styled.div`
     display: flex;
     gap: 20px;
 `;
+
+const StyledButton = styled.button`
+    color: black;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+    `;
 
 const StyledNavItem = styled(Link)`
     text-decoration: none;
