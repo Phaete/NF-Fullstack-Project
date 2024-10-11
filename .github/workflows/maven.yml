@@ -11,6 +11,9 @@ name: Java CI with Maven
 on:
   push:
 
+env:
+  APP_URL: http://localhost:5173
+
 jobs:
   build:
 
