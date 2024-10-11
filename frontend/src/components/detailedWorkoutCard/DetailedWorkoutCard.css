@@ -1,8 +1,18 @@
-.floating-button {
+.floating-button-tr {
     position: sticky;
     float: right;
     top: 15px;
     right: 15px;
     padding: 10px;
     z-index: 100;
+}
+
+.button-container {
+    position: relative;
+}
+.floating-button-br {
+    position: sticky;
+    bottom: 15px;
+    right: 15px;
+    padding: 10px;
 }

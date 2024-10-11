@@ -11,9 +11,10 @@ type AddExerciseLineProps = {
     exerciseList: Exercise[]
 }
 
-export default function AddExerciseLine(props: AddExerciseLineProps) {
+export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
 
     function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
+        console.log(props.index)
         props.setWorkout({
             ...props.workout,
             workoutList: props.workout.workoutList.map((item, i) =>
