@@ -22,11 +22,12 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
         sets: 0,
         reps: 0,
         amount: 0,
-        unit: " "
+        unit: " ",
+        uniqueId: crypto.randomUUID()
     }
 
     const[workout, setWorkout] = useState<Workout>({id:"", name:"", workoutList:[dummyWorkoutItem]})
-    const [exerciseList,setExerciseList] = useState<Exercise[]>([])
+    const[exerciseList,setExerciseList] = useState<Exercise[]>([])
 
     useEffect(() => {
         axios.get<Exercise[]>("/api/exercise")
@@ -65,8 +66,27 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
                 }}/>
                 <p className={"mt-10"}>Exercises</p>
                 {workout.workoutList.map((exercise, index) =>
-                    <AddExerciseLine exercise={exercise} index={index} workout={workout} setWorkout={setWorkout}
-                                     exerciseList={exerciseList} key={index}/>)}
+                    <div key={exercise.uniqueId}>
+                        <div className={"flex flex-row w-100"}>
+                            <div className={"flex-1"}>
+                                <AddExerciseLine exercise={exercise} index={index} workout={workout} setWorkout={setWorkout}
+                                                 exerciseList={exerciseList}/>
+                            </div>
+                            <button type={"button"} className={"delete-button"} onClick={
+                                () => {
+                                    console.log(index)
+                                    console.log(exercise.exercise.id.concat(String(index)))
+                                    console.log(workout.workoutList.filter((_, i) => i !== index))
+                                    setWorkout({
+                                        ...workout,
+                                        workoutList: workout.workoutList.filter((_, i) => i !== index)
+                                    })
+                                }
+                            }>Remove
+                            </button>
+                        </div>
+                    </div>
+                )}
                 <button type={"button"} onClick={handleSubmit}>Save</button>
             </form>
             <button type={"button"} onClick={() => {
@@ -77,7 +97,7 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
             <button type={"button"} onClick={() => {
                 setWorkout({
                     ...workout,
-                    workoutList:workout.workoutList.concat(dummyWorkoutItem)
+                    workoutList: workout.workoutList.concat(dummyWorkoutItem)
                 })
             }}>Add new exercise
             </button>

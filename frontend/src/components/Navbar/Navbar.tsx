@@ -1,14 +1,24 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 
-export default function Navbar(){
+type NavbarProps = {
+    login: () => void
+    logout: () => void
+    username: string
+}
+
+export default function Navbar(props: Readonly<NavbarProps>){
+
+
     return (
         <StyledNavbar>
             <StyledLogo>FitnessApp</StyledLogo>
             <StyledNavItems>
-                <StyledNavItem to={"/"}>Home</StyledNavItem>
+                <StyledNavItem to={"/dashboard"}>Home</StyledNavItem>
                 <StyledNavItem to={"/exercises"}>Exercises</StyledNavItem>
                 <StyledNavItem to={"/workouts"}>Workouts</StyledNavItem>
+                <p>Hello {props.username}</p>
+                {(!props.username || props.username === "anonymousUser") ? <button onClick={props.login}>Login</button> : <button onClick={props.logout}>Logout</button>}
             </StyledNavItems>
         </StyledNavbar>
     )
@@ -21,7 +31,6 @@ const StyledNavbar = styled.nav`
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0;
 `;
 
 const StyledLogo = styled.h1`

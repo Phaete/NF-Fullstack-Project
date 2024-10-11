@@ -5,14 +5,14 @@ type WorkoutListProps = {
     setWorkout: (workout: Workout) => void
 }
 
-export default function WorkoutList(props : WorkoutListProps) {
+export default function WorkoutList(props : Readonly<WorkoutListProps>) {
 
     return (
         <div>
-            <ul>
-                {props.workoutList.map((workoutComponent, index) => {
+            <ul className={"no-dot"}>
+                {props.workoutList.map((workoutComponent) => {
                     return (
-                        <li key={index}>
+                        <li key={workoutComponent.id}>
                             <button onClick={() => props.setWorkout(workoutComponent)}>
                                 {workoutComponent.name}
                             </button>
