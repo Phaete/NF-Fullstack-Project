@@ -5,7 +5,12 @@ import com.phaete.backend.fitness.model.Workout;
 import com.phaete.backend.fitness.model.WorkoutDTO;
 import com.phaete.backend.fitness.model.WorkoutListItem;
 import com.phaete.backend.fitness.repository.WorkoutRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +23,17 @@ class WorkoutServiceTest {
     private final WorkoutRepository workoutRepository = mock(WorkoutRepository.class);
     private final IdService idService = mock(IdService.class);
 
+    @BeforeEach
+    public void setUp() {
+        Authentication authentication = mock(Authentication.class);
+        when(authentication.getName()).thenReturn("");
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
+    }
+
     @Test
+    @WithMockUser(username = "")
     void findAll() {
         List<Workout> expectedWorkoutList = List.of(new Workout("1", "test",
                 List.of(new WorkoutListItem(new Exercise("1", "test", "test",
@@ -33,6 +48,7 @@ class WorkoutServiceTest {
     }
 
     @Test
+    @WithMockUser(username = "")
     void findById() {
         Workout expectedWorkout = new Workout("1", "test",
                 List.of(new WorkoutListItem(new Exercise("1", "test", "test",
@@ -48,6 +64,7 @@ class WorkoutServiceTest {
     }
 
     @Test
+    @WithMockUser(username = "")
     void save() {
         Workout expectedWorkout = new Workout("1", "test",
                 List.of(new WorkoutListItem(new Exercise("1", "test", "test",
@@ -66,6 +83,7 @@ class WorkoutServiceTest {
     }
 
     @Test
+    @WithMockUser(username = "")
     void update() {
         Workout expectedWorkout = new Workout("1", "test",
                 List.of(new WorkoutListItem(new Exercise("1", "test", "test",
@@ -87,6 +105,7 @@ class WorkoutServiceTest {
     }
 
     @Test
+    @WithMockUser(username = "")
     void findAllByIds() {
         List<Workout> expectedWorkoutList = List.of(new Workout("1", "test",
                 List.of(new WorkoutListItem(new Exercise("1", "test", "test",
