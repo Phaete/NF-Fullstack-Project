@@ -22,11 +22,12 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
         sets: 0,
         reps: 0,
         amount: 0,
-        unit: " "
+        unit: " ",
+        uniqueId: crypto.randomUUID()
     }
 
     const[workout, setWorkout] = useState<Workout>({id:"", name:"", workoutList:[dummyWorkoutItem]})
-    const [exerciseList,setExerciseList] = useState<Exercise[]>([])
+    const[exerciseList,setExerciseList] = useState<Exercise[]>([])
 
     useEffect(() => {
         axios.get<Exercise[]>("/api/exercise")
@@ -65,7 +66,7 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
                 }}/>
                 <p className={"mt-10"}>Exercises</p>
                 {workout.workoutList.map((exercise, index) =>
-                    <div key={crypto.randomUUID()}>
+                    <div key={exercise.uniqueId}>
                         <div className={"flex flex-row w-100"}>
                             <div className={"flex-1"}>
                                 <AddExerciseLine exercise={exercise} index={index} workout={workout} setWorkout={setWorkout}

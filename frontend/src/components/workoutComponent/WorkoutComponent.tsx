@@ -7,6 +7,7 @@ export type Workout = {
 }
 
 export type WorkoutListItem= {
+    uniqueId: React.Key | null | undefined,
     exercise: Exercise,
     sets: number,
     reps: number,

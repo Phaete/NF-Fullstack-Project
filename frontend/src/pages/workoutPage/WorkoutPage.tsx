@@ -26,6 +26,10 @@ export default function WorkoutPage() {
         fetchData()
     }, []);
 
+    useEffect(() => {
+
+    }, [workoutList]);
+
 
     return (
         <div className={"centered flex flex-row align-center m-20"}>
@@ -44,7 +48,7 @@ export default function WorkoutPage() {
 
             <div className={"h-80 m-20 flex-1 bordered"}>
                 <div className={"m-20"}>
-                    <DetailedWorkoutCard workout={workout} clearSelection={clearSelection}/>
+                    <DetailedWorkoutCard workout={workout} clearSelection={clearSelection} fetchData={fetchData}/>
                 </div>
             </div>
         </div>

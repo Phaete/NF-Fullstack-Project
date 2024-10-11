@@ -1,6 +1,5 @@
 import {Workout} from "../workoutComponent/WorkoutComponent.tsx";
 
-
 type WorkoutListProps = {
     workoutList: Workout[],
     setWorkout: (workout: Workout) => void
