@@ -5,19 +5,20 @@ import {Workout, WorkoutListItem} from "../workoutComponent/WorkoutComponent.tsx
 import AddExerciseLine from "../addExerciseLine/AddExerciseLine.tsx";
 import {Exercise} from "../../App.tsx";
 import axios from "axios";
+import styled from "styled-components";
 
 
 export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentProps>) {
 
-    const dummyWorkoutItem:WorkoutListItem = {
+    const dummyWorkoutItem: WorkoutListItem = {
         exercise: {
-            id:"",
-            name:"",
-            type:"",
-            muscle:"",
-            instructions:"",
-            equipment:"",
-            difficulty:"",
+            id: "",
+            name: "",
+            type: "",
+            muscle: "",
+            instructions: "",
+            equipment: "",
+            difficulty: "",
         },
         sets: 0,
         reps: 0,
@@ -26,8 +27,8 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
         uniqueId: crypto.randomUUID()
     }
 
-    const[workout, setWorkout] = useState<Workout>({id:"", name:"", workoutList:[dummyWorkoutItem]})
-    const[exerciseList,setExerciseList] = useState<Exercise[]>([])
+    const [workout, setWorkout] = useState<Workout>({id: "", name: "", workoutList: [dummyWorkoutItem]})
+    const [exerciseList, setExerciseList] = useState<Exercise[]>([])
 
     useEffect(() => {
         axios.get<Exercise[]>("/api/exercise")
@@ -36,11 +37,11 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
     }, []);
 
     function resetForm() {
-        setWorkout({id:"", name:"", workoutList:[dummyWorkoutItem]})
+        setWorkout({id: "", name: "", workoutList: [dummyWorkoutItem]})
     }
 
-    function handleSubmit(){
-        axios.post("/api/workouts",workout)
+    function handleSubmit() {
+        axios.post("/api/workouts", workout)
             .then(() => {
                 props.setNewWorkout(false)
                 resetForm()
@@ -50,57 +51,140 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
 
     }
 
-    
 
     return (
-        <>
-            <form className={"flex flex-col m-10"}>
+        <FormContainer>
+            <form>
                 <p>Workout Name</p>
-                <input onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                    setWorkout({
+                <InputField
+                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        setWorkout({
                             ...workout,
-                            name: event.target.value
-                        }
-                    );
-                    console.log(workout)
-                }}/>
-                <p className={"mt-10"}>Exercises</p>
-                {workout.workoutList.map((exercise, index) =>
-                    <div key={exercise.uniqueId}>
-                        <div className={"flex flex-row w-100"}>
-                            <div className={"flex-1"}>
-                                <AddExerciseLine exercise={exercise} index={index} workout={workout} setWorkout={setWorkout}
-                                                 exerciseList={exerciseList}/>
-                            </div>
-                            <button type={"button"} className={"delete-button"} onClick={
-                                () => {
-                                    console.log(index)
-                                    console.log(exercise.exercise.id.concat(String(index)))
-                                    console.log(workout.workoutList.filter((_, i) => i !== index))
-                                    setWorkout({
-                                        ...workout,
-                                        workoutList: workout.workoutList.filter((_, i) => i !== index)
-                                    })
-                                }
-                            }>Remove
-                            </button>
-                        </div>
-                    </div>
-                )}
-                <button type={"button"} onClick={handleSubmit}>Save</button>
+                            name: event.target.value,
+                        });
+                    }}
+                />
+                <p>Exercises</p>
+                {workout.workoutList.map((exercise, index) => (
+                    <ExerciseContainer key={exercise.uniqueId}>
+                        <AddExerciseLine
+                            exercise={exercise}
+                            index={index}
+                            workout={workout}
+                            setWorkout={setWorkout}
+                            exerciseList={exerciseList}
+                        />
+                        <RemoveButton
+                            type="button"
+                            onClick={() => {
+                                setWorkout({
+                                    ...workout,
+                                    workoutList: workout.workoutList.filter((_, i) => i !== index),
+                                });
+                            }}
+                        >
+                            Remove
+                        </RemoveButton>
+                    </ExerciseContainer>
+                ))}
+                <Button type="button" onClick={handleSubmit}>
+                    Save
+                </Button>
             </form>
-            <button type={"button"} onClick={() => {
-                props.setNewWorkout(false)
-                resetForm()
-            }}>Cancel
-            </button>
-            <button type={"button"} onClick={() => {
-                setWorkout({
-                    ...workout,
-                    workoutList: workout.workoutList.concat(dummyWorkoutItem)
-                })
-            }}>Add new exercise
-            </button>
-        </>
+            <Button
+                type="button"
+                onClick={() => {
+                    props.setNewWorkout(false);
+                    resetForm();
+                }}
+            >
+                Cancel
+            </Button>
+            <Button
+                type="button"
+                onClick={() => {
+                    setWorkout({
+                        ...workout,
+                        workoutList: workout.workoutList.concat(dummyWorkoutItem),
+                    });
+                }}
+            >
+                Add new exercise
+            </Button>
+        </FormContainer>
     )
 }
+
+
+
+const FormContainer = styled.div`
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+`;
+
+const InputField = styled.input`
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #90caf9;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #303030;
+
+    &:focus {
+        outline: none;
+        border-color: #42a5f5;
+        box-shadow: 0 0 5px rgba(66, 165, 245, 0.5);
+    }
+`;
+
+const Button = styled.button`
+    background-color: transparent;
+    color: #303030;
+    padding: 10px 20px;
+    border: 2px solid #bcdaf5;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: rgba(144, 202, 249, 0.1);
+    }
+
+    &:active {
+        background-color: rgba(144, 202, 249, 0.2);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+`;
+
+const RemoveButton = styled(Button)`
+    background-color: #f8d7da;
+    color: #d32f2f;
+    border: 1px solid #d32f2f;
+
+    &:hover {
+        background-color: #d32f2f;
+        color: #ffffff;
+    }
+`;
+
+const ExerciseContainer = styled.div`
+    margin: 10px 0;
+    padding: 15px;
+    background-color: #f0f8ff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+`;
+

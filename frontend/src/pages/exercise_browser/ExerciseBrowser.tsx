@@ -84,14 +84,14 @@ const StyledContainer = styled.div`
     min-height: 100vh;
     padding: 10px;
     background-color: #f7f9fc;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 `
 
 const StyledDiv = styled.div`
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     overflow: auto;
     max-height: 800px;
 `

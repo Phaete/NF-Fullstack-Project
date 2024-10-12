@@ -5,6 +5,7 @@ import axios from "axios";
 import DetailedWorkoutCard from "../../components/detailedWorkoutCard/DetailedWorkoutCard.tsx";
 import "./WorkoutPage.css/"
 import AddWorkoutComponent from "../../components/addWorkoutComponent/AddWorkoutComponent.tsx";
+import styled from "styled-components";
 
 export default function WorkoutPage() {
 
@@ -32,26 +33,63 @@ export default function WorkoutPage() {
 
 
     return (
-        <div className={"centered flex flex-row align-center m-20"}>
-            <div className={"h-80 flex-2 bordered"}>
-            {newWorkout ? (
-                <AddWorkoutComponent setNewWorkout={setNewWorkout} fetchData={fetchData}/>
-            ) : (
-                <>
-                    <div>
-                        <WorkoutList workoutList={workoutList} setWorkout={setWorkout}/>
-                    </div>
-                    <button className={"float-br mr-10"} onClick={() => setNewWorkout(true)}>Add Workout</button>
-                </>
-            )}
-            </div>
+        <>
+            <WorkoutContainer>
+                <WorkoutBox>
+                    {newWorkout ? (
+                        <AddWorkoutComponent setNewWorkout={setNewWorkout} fetchData={fetchData} />
+                    ) : (
+                        <>
+                            <WorkoutList workoutList={workoutList} setWorkout={setWorkout} />
+                            <Button  onClick={() => setNewWorkout(true)}>
+                                Add Workout
+                            </Button>
+                        </>
+                    )}
+                </WorkoutBox>
 
-            <div className={"h-80 m-20 flex-1 bordered"}>
-                <div className={"m-20"}>
-                    <DetailedWorkoutCard workout={workout} clearSelection={clearSelection} fetchData={fetchData}/>
-                </div>
-            </div>
-        </div>
+                <WorkoutBox>
+                    <DetailedWorkoutCard workout={workout} clearSelection={clearSelection} fetchData={fetchData} />
+                </WorkoutBox>
+            </WorkoutContainer>
+        </>
     );
 }
 
+const WorkoutBox = styled.div`
+    width: 50%;
+    height: 80vh;
+    background-color: white;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: inline-block;
+    vertical-align: top;
+`;
+
+const WorkoutContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Button = styled.button`
+    background-color: transparent;
+    color: #303030;
+    padding: 5px 10px;
+    border: 2px solid #bcdaf5;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: rgba(144, 202, 249, 0.1);
+    }
+
+    &:active {
+        background-color: rgba(144, 202, 249, 0.2);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+`;
