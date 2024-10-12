@@ -87,10 +87,8 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
                         </RemoveButton>
                     </ExerciseContainer>
                 ))}
-                <Button type="button" onClick={handleSubmit}>
-                    Save
-                </Button>
             </form>
+            <ButtonContainer>
             <Button
                 type="button"
                 onClick={() => {
@@ -100,6 +98,9 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
             >
                 Cancel
             </Button>
+                <Button type="button" onClick={handleSubmit}>
+                    Save
+                </Button>
             <Button
                 type="button"
                 onClick={() => {
@@ -111,6 +112,7 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
             >
                 Add new exercise
             </Button>
+            </ButtonContainer>
         </FormContainer>
     )
 }
@@ -129,7 +131,7 @@ const FormContainer = styled.div`
 `;
 
 const InputField = styled.input`
-    width: 100%;
+    width: 90%;
     padding: 12px;
     margin: 12px 0;
     border: 1px solid #90caf9;
@@ -166,8 +168,8 @@ const Button = styled.button`
 `;
 
 const RemoveButton = styled(Button)`
-    background-color: #f8d7da;
-    color: #d32f2f;
+    background-color: transparent;
+    color: #303030;
     border: 1px solid #d32f2f;
 
     &:hover {
@@ -179,7 +181,7 @@ const RemoveButton = styled(Button)`
 const ExerciseContainer = styled.div`
     margin: 10px 0;
     padding: 15px;
-    background-color: #f0f8ff;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -188,3 +190,8 @@ const ExerciseContainer = styled.div`
     text-align: left;
 `;
 
+const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+`;

@@ -10,7 +10,7 @@ export default function WorkoutList(props : Readonly<WorkoutListProps>) {
 
     return (
         <div>
-            <h1>Personal Workouts</h1>
+            <StyledHeadline>Personal Workouts</StyledHeadline>
             <StyledList >
                 {props.workoutList.map((workoutComponent) => {
                     return (
@@ -53,7 +53,7 @@ const StyledList = styled.ul`
   margin: 20px 0;
   border: 1px solid #90caf9;
   border-radius: 8px;
-  background-color: rgba(144, 202, 249, 0.05);
+  background-color: transparent;
 `;
 
 const StyledListItem = styled.li`
@@ -66,13 +66,18 @@ const StyledListItem = styled.li`
         border-bottom: none;
     }
 
-    &:hover {
-        background-color: rgba(144, 202, 249, 0.1);
-    }
-
     p {
         margin: 5px 0;
         font-size: 16px;
         color: black;
     }
+`;
+
+const StyledHeadline = styled.h2`
+    color: #303030;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 0;
+    text-align: center;
 `;

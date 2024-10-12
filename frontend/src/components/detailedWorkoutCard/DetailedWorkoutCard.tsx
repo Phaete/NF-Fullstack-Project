@@ -23,17 +23,18 @@ export default function DetailedWorkoutCard(props: Readonly<DetailedWorkoutCardP
         <>
             {props.workout.id !== "1" ? (
                 <>
+                    <ButtonContainer>
                     <OutlinedButton type="button" onClick={() => props.clearSelection()}>
                         Clear Selection
                     </OutlinedButton>
-                    <div>
+
                         <OutlinedButton type="button" onClick={() => console.log("edit")}>
                             Edit Workout
                         </OutlinedButton>
                         <OutlinedButton type="button" onClick={() => deleteWorkout()}>
                             Delete Workout
                         </OutlinedButton>
-                    </div>
+                    </ButtonContainer>
                 </>
             ) : null}
             <p>{props.workout.name}</p>
@@ -101,4 +102,10 @@ const StyledListItem = styled.li`
         font-size: 16px;
         color: black;
     }
+`;
+
+const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
 `;
