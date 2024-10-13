@@ -31,7 +31,7 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
 
     return (
         <div className={"container"}>
-            <select onChange={handleSelectChange} className={"container-item3"}>
+            <select onChange={handleSelectChange} value={props.workout.workoutList[props.index].exercise.name} className={"container-item3"}>
                 <option value={""}>Select an exercise</option>
                 {props.exerciseList.map(exercise =>
                     <option value={exercise.name} key={exercise.id}>
@@ -40,7 +40,7 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
                 )}
             </select>
             <div className={"container-item1"}>
-                <input placeholder={"Sets"} onChange={
+                <input placeholder={"Sets"} value={props.workout.workoutList[props.index].sets!==0?props.workout.workoutList[props.index].sets:""} onChange={
                     (event:ChangeEvent<HTMLInputElement>) => {
                         props.setWorkout({
                             ...props.workout,
@@ -55,7 +55,7 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
                         })
                     }
                 }/>
-                <input placeholder={"Reps"} onChange={
+                <input placeholder={"Reps"} value={props.workout.workoutList[props.index].reps!==0?props.workout.workoutList[props.index].reps:""} onChange={
                     (event:ChangeEvent<HTMLInputElement>) => {
                         props.setWorkout({
                             ...props.workout,
@@ -70,7 +70,7 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
                         })
                     }
                 }/>
-                <input placeholder={"Amount"} onChange={
+                <input placeholder={"Amount"} value={props.workout.workoutList[props.index].amount!==0?props.workout.workoutList[props.index].amount:""} onChange={
                     (event:ChangeEvent<HTMLInputElement>) => {
                         props.setWorkout({
                             ...props.workout,
@@ -85,7 +85,7 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
                         })
                     }
                 }/>
-                <input placeholder={"Unit"} onChange={
+                <input placeholder={"Unit"} value={props.workout.workoutList[props.index].unit} onChange={
                     (event:ChangeEvent<HTMLInputElement>) => {
                         props.setWorkout({
                             ...props.workout,
