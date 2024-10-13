@@ -30,10 +30,21 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
     const[exerciseList,setExerciseList] = useState<Exercise[]>([])
 
     useEffect(() => {
+        getAllCustomExercises()
+        getAllDefaultExercises()
+    }, []);
+
+    function getAllCustomExercises() {
         axios.get<Exercise[]>("/api/exercise")
             .then(response => setExerciseList(response.data))
             .catch(err => console.log(err))
-    }, []);
+    }
+
+    function getAllDefaultExercises() {
+        axios.get<Exercise[]>("/api/defaultExercises")
+            .then(response => setExerciseList(exerciseList.concat(response.data)))
+            .catch(err => console.log(err))
+    }
 
     function resetForm() {
         setWorkout({id:"", name:"", workoutList:[dummyWorkoutItem]})

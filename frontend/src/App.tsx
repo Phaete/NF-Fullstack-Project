@@ -25,6 +25,7 @@ export type Exercise = {
 export default function App() {
 
     const [exercises, setExercises] = useState<Exercise[]>([])
+    const [defaultExercises, setDefaultExercises] = useState<Exercise[]>([])
     const [username, setUsername] = useState<string>("")
 
     function login(){
@@ -43,6 +44,12 @@ export default function App() {
             .catch(err => console.error(err))
     }
 
+    function fetchAPIData() {
+        axios.get("api/defaultExercises")
+            .then(response => setDefaultExercises(response.data))
+            .catch(err => console.error(err))
+    }
+
     function getMe() {
         axios.get("api/auth/me")
             .then(r => setUsername(r.data))
@@ -50,6 +57,7 @@ export default function App() {
     }
 
     useEffect(() => {
+        fetchAPIData()
         fetchData()
         getMe()
     }, []);
@@ -68,6 +76,8 @@ export default function App() {
                         }/>
                         <Route path={"/exercises"} element={
                             <ExerciseBrowser
+                                defaultExercises={defaultExercises}
+                                setDefaultExercises={setDefaultExercises}
                                 exercises={exercises}
                                 fetchData={fetchData}
                             />

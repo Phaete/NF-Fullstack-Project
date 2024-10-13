@@ -22,6 +22,7 @@ export default function WorkoutPage() {
             .catch(err => console.error(err))
     }
 
+
     useEffect(() => {
         fetchData()
     }, []);
