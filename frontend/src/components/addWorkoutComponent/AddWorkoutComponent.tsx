@@ -65,6 +65,8 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
                     }}
                 />
                 <p>Exercises</p>
+                <div style={{overflow: "auto",
+                    maxHeight: "450px"}}>
                 {workout.workoutList.map((exercise, index) => (
                     <ExerciseContainer key={exercise.uniqueId}>
                         <AddExerciseLine
@@ -87,6 +89,7 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
                         </RemoveButton>
                     </ExerciseContainer>
                 ))}
+                </div>
             </form>
             <ButtonContainer>
             <Button

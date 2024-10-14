@@ -1,11 +1,10 @@
-import bodybuilder from "../../assets/Bodybuilder Kopie.png";
 import "./LandingPage.css";
 
 export default function LandingPage() {
     return (
         <div className={"centered"}>
             <h1 className={"title"}>Welcome to FitnessApp</h1>
-            <img className={"bodybuilderImage"} src={bodybuilder} alt={"Bodybuilder"}/>
+            <img className={"bodybuilderImage"} src={"src/assets/Bodybuilder.png"} alt={"Bodybuilder"}/>
         </div>
     )
 }
