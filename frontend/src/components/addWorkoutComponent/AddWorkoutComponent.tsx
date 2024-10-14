@@ -136,7 +136,7 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
                 onClick={() => {
                     props.setWorkout({
                         ...props.workout,
-                        workoutList: props.workout.workoutList.concat(dummyWorkoutItem)
+                        workoutList: props.workout.workoutList.concat(dummyWorkoutItem())
                     });
                 }}
             >
