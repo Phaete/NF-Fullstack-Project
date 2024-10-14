@@ -1,7 +1,7 @@
 import "./AddWorkoutComponent.css/"
 import {AddWorkoutComponentProps} from "./AddWorkoutComponentProps.ts"
 import {ChangeEvent, useEffect, useState} from "react";
-import {Workout, WorkoutListItem} from "../workoutComponent/WorkoutComponent.tsx";
+import {WorkoutListItem} from "../workoutComponent/WorkoutComponent.tsx";
 import AddExerciseLine from "../addExerciseLine/AddExerciseLine.tsx";
 import {Exercise} from "../../App.tsx";
 import axios from "axios";
@@ -9,7 +9,7 @@ import axios from "axios";
 
 export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentProps>) {
 
-    const dummyWorkoutItem:WorkoutListItem = {
+    const dummyWorkoutItem:() => WorkoutListItem = ():WorkoutListItem => { return {
         exercise: {
             id:"",
             name:"",
@@ -24,9 +24,8 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
         amount: 0,
         unit: " ",
         uniqueId: crypto.randomUUID()
-    }
+    }}
 
-    const[workout, setWorkout] = useState<Workout>({id:"", name:"", workoutList:[dummyWorkoutItem]})
     const[exerciseList,setExerciseList] = useState<Exercise[]>([])
 
     useEffect(() => {
@@ -47,18 +46,27 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
     }
 
     function resetForm() {
-        setWorkout({id:"", name:"", workoutList:[dummyWorkoutItem]})
+        props.setWorkout({id:"", name:"", workoutList:[dummyWorkoutItem()]})
     }
 
     function handleSubmit(){
-        axios.post("/api/workouts",workout)
-            .then(() => {
-                props.setNewWorkout(false)
-                resetForm()
-                props.fetchData()
-            })
-            .catch(err => console.error(err))
-
+        if(props.workout.id!==""){
+            axios.put("/api/workouts/"+props.workout.id, props.workout)
+                .then(() => {
+                    props.setNewWorkout(false)
+                    resetForm()
+                    props.fetchData()
+                })
+                .catch(err => console.error(err))
+        } else {
+            axios.post("/api/workouts", props.workout)
+                .then(() => {
+                    props.setNewWorkout(false)
+                    resetForm()
+                    props.fetchData()
+                })
+                .catch(err => console.error(err))
+        }
     }
 
     
@@ -67,30 +75,26 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
         <>
             <form className={"flex flex-col m-10"}>
                 <p>Workout Name</p>
-                <input onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                    setWorkout({
-                            ...workout,
+                <input value={props.workout.name} onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                    props.setWorkout({
+                            ...props.workout,
                             name: event.target.value
                         }
                     );
-                    console.log(workout)
                 }}/>
                 <p className={"mt-10"}>Exercises</p>
-                {workout.workoutList.map((exercise, index) =>
+                {props.workout.workoutList.map((exercise, index) =>
                     <div key={exercise.uniqueId}>
                         <div className={"flex flex-row w-100"}>
                             <div className={"flex-1"}>
-                                <AddExerciseLine exercise={exercise} index={index} workout={workout} setWorkout={setWorkout}
+                                <AddExerciseLine exercise={exercise} index={index} workout={props.workout} setWorkout={props.setWorkout}
                                                  exerciseList={exerciseList}/>
                             </div>
                             <button type={"button"} className={"delete-button"} onClick={
                                 () => {
-                                    console.log(index)
-                                    console.log(exercise.exercise.id.concat(String(index)))
-                                    console.log(workout.workoutList.filter((_, i) => i !== index))
-                                    setWorkout({
-                                        ...workout,
-                                        workoutList: workout.workoutList.filter((_, i) => i !== index)
+                                    props.setWorkout({
+                                        ...props.workout,
+                                        workoutList: props.workout.workoutList.filter((_, i) => i !== index)
                                     })
                                 }
                             }>Remove
@@ -106,9 +110,9 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
             }}>Cancel
             </button>
             <button type={"button"} onClick={() => {
-                setWorkout({
-                    ...workout,
-                    workoutList: workout.workoutList.concat(dummyWorkoutItem)
+                props.setWorkout({
+                    ...props.workout,
+                    workoutList: props.workout.workoutList.concat(dummyWorkoutItem())
                 })
             }}>Add new exercise
             </button>

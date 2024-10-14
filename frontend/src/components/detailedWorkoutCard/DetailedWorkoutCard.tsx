@@ -5,7 +5,8 @@ import axios from "axios";
 type DetailedWorkoutCardProps = {
     workout: Workout,
     clearSelection: () => void,
-    fetchData: () => void
+    fetchData: () => void,
+    editCallback: (w:Workout) => void
 }
 
 export default function DetailedWorkoutCard(props: Readonly<DetailedWorkoutCardProps>) {
@@ -18,6 +19,17 @@ export default function DetailedWorkoutCard(props: Readonly<DetailedWorkoutCardP
         )
     }
 
+    function copyWorkoutWithNewUniqueIds(workout: Workout): Workout {
+        const copiedWorkout: Workout = JSON.parse(JSON.stringify(workout));
+        copiedWorkout.workoutList = copiedWorkout.workoutList.map(item => ({
+            ...item,
+            uniqueId: crypto.randomUUID()
+        }));
+        return copiedWorkout;
+    }
+
+
+
     return (
         <>
             {props.workout.id !== "1" ?
@@ -26,7 +38,7 @@ export default function DetailedWorkoutCard(props: Readonly<DetailedWorkoutCardP
                         Clear Selection
                     </button>
                     <div className={"button-container"}>
-                        <button className={"floating-button-br"} type={"button"} onClick={() => console.log("edit")}>
+                        <button className={"floating-button-br"} type={"button"} onClick={() => props.editCallback(copyWorkoutWithNewUniqueIds(props.workout))}>
                             Edit Workout
                         </button>
                         <button className={"floating-button-br"} type={"button"} onClick={() => deleteWorkout()}>
