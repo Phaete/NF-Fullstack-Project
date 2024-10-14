@@ -22,7 +22,7 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
         sets: 0,
         reps: 0,
         amount: 0,
-        unit: " ",
+        unit: "",
         uniqueId: crypto.randomUUID()
     }}
 
@@ -41,8 +41,16 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
 
     function getAllDefaultExercises() {
         axios.get<Exercise[]>("/api/defaultExercises")
-            .then(response => setExerciseList(exerciseList.concat(response.data)))
-            .catch(err => console.log(err))
+            .then(response => {
+                setExerciseList(prevList => mergeUniqueExercises(prevList, response.data));
+            })
+            .catch(err => console.log(err));
+    }
+
+    function mergeUniqueExercises(list1: Exercise[], list2: Exercise[]): Exercise[] {
+        const allExercises = [...list1, ...list2];
+        return Array.from(new Set(allExercises.map(ex => ex.name)))
+            .map(name => allExercises.find(ex => ex.name === name)!);
     }
 
     function resetForm() {
