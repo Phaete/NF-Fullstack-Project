@@ -1,7 +1,10 @@
+import "./LandingPage.css";
+
 export default function LandingPage() {
     return (
         <div className={"centered"}>
-            <p>Please log in via the button on the navbar!</p>
+            <h1 className={"title"}>Welcome to FitnessApp</h1>
+            <img className={"bodybuilderImage"} src={"src/assets/Bodybuilder.png"} alt={"Bodybuilder"}/>
         </div>
     )
 }

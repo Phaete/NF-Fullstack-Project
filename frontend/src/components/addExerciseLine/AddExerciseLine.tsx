@@ -2,6 +2,7 @@ import "./AddExerciseLine.css"
 import {Workout, WorkoutListItem} from "../workoutComponent/WorkoutComponent.tsx";
 import {Exercise} from "../../App.tsx";
 import {ChangeEvent} from "react";
+import styled from "styled-components";
 
 type AddExerciseLineProps = {
     exercise: WorkoutListItem,
@@ -30,18 +31,18 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
 
 
     return (
-        <div className={"container"}>
-            <select onChange={handleSelectChange} className={"container-item3"}>
+        <Container>
+            <Select onChange={handleSelectChange} value={props.workout.workoutList[props.index].exercise.name}>
                 <option value={""}>Select an exercise</option>
                 {props.exerciseList.map(exercise =>
                     <option value={exercise.name} key={exercise.id}>
                         {exercise.name}
                     </option>
                 )}
-            </select>
-            <div className={"container-item1"}>
-                <input placeholder={"Sets"} onChange={
-                    (event:ChangeEvent<HTMLInputElement>) => {
+            </Select>
+            <InputContainer>
+                <StyledInput placeholder={"Sets"} value={props.workout.workoutList[props.index].sets!==0?props.workout.workoutList[props.index].sets:""} onChange={
+                    (event: ChangeEvent<HTMLInputElement>) => {
                         props.setWorkout({
                             ...props.workout,
                             workoutList: props.workout.workoutList.map((item, i) =>
@@ -55,8 +56,8 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
                         })
                     }
                 }/>
-                <input placeholder={"Reps"} onChange={
-                    (event:ChangeEvent<HTMLInputElement>) => {
+                <StyledInput placeholder={"Reps"} value={props.workout.workoutList[props.index].reps!==0?props.workout.workoutList[props.index].reps:""} onChange={
+                    (event: ChangeEvent<HTMLInputElement>) => {
                         props.setWorkout({
                             ...props.workout,
                             workoutList: props.workout.workoutList.map((item, i) =>
@@ -70,8 +71,8 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
                         })
                     }
                 }/>
-                <input placeholder={"Amount"} onChange={
-                    (event:ChangeEvent<HTMLInputElement>) => {
+                <StyledInput placeholder={"Amount"} value={props.workout.workoutList[props.index].amount!==0?props.workout.workoutList[props.index].amount:""} onChange={
+                    (event: ChangeEvent<HTMLInputElement>) => {
                         props.setWorkout({
                             ...props.workout,
                             workoutList: props.workout.workoutList.map((item, i) =>
@@ -85,8 +86,8 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
                         })
                     }
                 }/>
-                <input placeholder={"Unit"} onChange={
-                    (event:ChangeEvent<HTMLInputElement>) => {
+                <StyledInput placeholder={"Unit"} value={props.workout.workoutList[props.index].unit} onChange={
+                    (event: ChangeEvent<HTMLInputElement>) => {
                         props.setWorkout({
                             ...props.workout,
                             workoutList: props.workout.workoutList.map((item, i) =>
@@ -100,7 +101,40 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
                         })
                     }
                 }/>
-            </div>
-        </div>
+            </InputContainer>
+        </Container>
     )
 }
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #90caf9;
+    border-radius: 8px;
+    margin-bottom: 20px;
+`;
+
+const Select = styled.select`
+    padding: 5px;
+    border: 1px solid #90caf9;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #303030;
+`;
+
+const InputContainer = styled.div`
+    display: flex;
+    gap: 10px;
+`;
+
+const StyledInput = styled.input`
+    padding: 5px;
+    border: 1px solid #90caf9;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #303030;
+    width: 80px;
+`;

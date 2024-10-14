@@ -10,7 +10,7 @@ type ListCardProps = {
     dialogUpdate: (e:Exercise) => void
 }
 
-export default function ListCard(props: ListCardProps) {
+export default function ListCard(props: Readonly<ListCardProps>) {
     const [expanded, setExpanded] = useState(false);
 
     function toggleExpanded() {
@@ -20,7 +20,7 @@ export default function ListCard(props: ListCardProps) {
     return (
         <Card
             sx={{
-                overflow: 'visible',
+                overflow: 'auto',
                 width:800
             }}
         >
@@ -57,7 +57,9 @@ export default function ListCard(props: ListCardProps) {
                     justifyContent:'flex-end',
                     gap:0.5
                 }}>
-                    <Button variant="contained"
+                    {props.exercise.id != null ?
+                    <>
+                        <Button variant="contained"
                             sx={{
                                 backgroundColor: '#3498db',
                                 color: '#fff',
@@ -66,25 +68,30 @@ export default function ListCard(props: ListCardProps) {
                                 },
                             }}
                             onClick={
-                        () => axios.delete("api/exercise/" + props.exercise.id)
-                        .then(() => props.fetchData())
-                        .catch(err => console.error(err))}
-                    >
-                        Delete
-                    </Button>
-                    <Button variant="contained"
-                            sx={{
-                                backgroundColor: '#3498db',
-                                color: '#fff',
-                                '&:hover': {
-                                    backgroundColor: '#2980b9',
-                                },
-                            }}
+                                () => axios.delete("api/exercise/" + props.exercise.id)
+                                .then(() => props.fetchData())
+                                .catch(err => console.error(err))}
+                            >
+                            Delete
+                        </Button>
+                        <Button variant="contained"
+                                sx={{
+                                    backgroundColor: '#3498db',
+                                    color: '#fff',
+                                    '&:hover': {
+                                        backgroundColor: '#2980b9',
+                                    },
+                                }}
 
-                            onClick={() =>
-                            {props.dialogUpdate(props.exercise)}}>
-                        Edit
-                    </Button>
+                                onClick={() =>
+                                {props.dialogUpdate(props.exercise)}}>
+                            Edit
+                        </Button>
+                    </>
+                    :
+                    <>
+                    </>
+                    }
                 </Box>
                 <StyledSingleCard>
                 <Typography sx={{marginBottom: '16px'}}><strong>Difficulty:</strong> {props.exercise.difficulty}
