@@ -100,4 +100,6 @@ const StyledButton = styled.button`
 
 const StyledText = styled.p`
     color: #838383;
+    font-size: 19px;
+    margin-top: 7px;
 `;
