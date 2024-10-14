@@ -6,29 +6,41 @@ import styled from "styled-components";
 type DetailedWorkoutCardProps = {
     workout: Workout,
     clearSelection: () => void,
-    fetchData: () => void
+    fetchData: () => void,
+    editCallback: (w:Workout) => void
 }
 
 export default function DetailedWorkoutCard(props: Readonly<DetailedWorkoutCardProps>) {
 
     function deleteWorkout() {
-        axios.delete("/api/workouts/" + props.workout.id).then(() => {
-                props.clearSelection()
-                props.fetchData()
-            }
+        axios.delete("/api/workouts/"+props.workout.id).then(() => {
+            props.clearSelection()
+            props.fetchData()
+        }
         )
     }
 
+    function copyWorkoutWithNewUniqueIds(workout: Workout): Workout {
+        const copiedWorkout: Workout = JSON.parse(JSON.stringify(workout));
+        copiedWorkout.workoutList = copiedWorkout.workoutList.map(item => ({
+            ...item,
+            uniqueId: crypto.randomUUID()
+        }));
+        return copiedWorkout;
+    }
+
+
+
     return (
         <>
-            {props.workout.id !== "1" ? (
+            {props.workout.id !== "1" ?
                 <>
                     <ButtonContainer>
                     <OutlinedButton type="button" onClick={() => props.clearSelection()}>
                         Clear Selection
                     </OutlinedButton>
 
-                        <OutlinedButton type="button" onClick={() => console.log("edit")}>
+                        <OutlinedButton type="button" onClick={() => props.editCallback(copyWorkoutWithNewUniqueIds(props.workout))}>
                             Edit Workout
                         </OutlinedButton>
                         <OutlinedButton type="button" onClick={() => deleteWorkout()}>
@@ -36,7 +48,7 @@ export default function DetailedWorkoutCard(props: Readonly<DetailedWorkoutCardP
                         </OutlinedButton>
                     </ButtonContainer>
                 </>
-            ) : null}
+            : null}
             <p>{props.workout.name}</p>
             <StyledList>
                 {props.workout.workoutList.map((workout, index) => {

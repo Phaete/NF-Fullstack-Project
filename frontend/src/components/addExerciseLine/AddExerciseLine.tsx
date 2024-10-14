@@ -32,7 +32,7 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
 
     return (
         <Container>
-            <Select onChange={handleSelectChange}>
+            <Select onChange={handleSelectChange} value={props.workout.workoutList[props.index].exercise.name}>
                 <option value={""}>Select an exercise</option>
                 {props.exerciseList.map(exercise =>
                     <option value={exercise.name} key={exercise.id}>
@@ -41,7 +41,7 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
                 )}
             </Select>
             <InputContainer>
-                <StyledInput placeholder={"Sets"} onChange={
+                <StyledInput placeholder={"Sets"} value={props.workout.workoutList[props.index].sets!==0?props.workout.workoutList[props.index].sets:""} onChange={
                     (event: ChangeEvent<HTMLInputElement>) => {
                         props.setWorkout({
                             ...props.workout,
@@ -49,14 +49,14 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
                                 i === props.index ?
                                     {
                                         ...item,
-                                        sets: +event.target.value || 0
+                                        sets: +event.target.value||0
                                     }
                                     : item
                             )
                         })
                     }
                 }/>
-                <StyledInput placeholder={"Reps"} onChange={
+                <StyledInput placeholder={"Reps"} value={props.workout.workoutList[props.index].reps!==0?props.workout.workoutList[props.index].reps:""} onChange={
                     (event: ChangeEvent<HTMLInputElement>) => {
                         props.setWorkout({
                             ...props.workout,
@@ -64,14 +64,14 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
                                 i === props.index ?
                                     {
                                         ...item,
-                                        reps: +event.target.value || 0
+                                        reps: +event.target.value||0
                                     }
                                     : item
                             )
                         })
                     }
                 }/>
-                <StyledInput placeholder={"Amount"} onChange={
+                <StyledInput placeholder={"Amount"} value={props.workout.workoutList[props.index].amount!==0?props.workout.workoutList[props.index].amount:""} onChange={
                     (event: ChangeEvent<HTMLInputElement>) => {
                         props.setWorkout({
                             ...props.workout,
@@ -79,14 +79,14 @@ export default function AddExerciseLine(props: Readonly<AddExerciseLineProps>) {
                                 i === props.index ?
                                     {
                                         ...item,
-                                        amount: +event.target.value || 0
+                                        amount: +event.target.value||0
                                     }
                                     : item
                             )
                         })
                     }
                 }/>
-                <StyledInput placeholder={"Unit"} onChange={
+                <StyledInput placeholder={"Unit"} value={props.workout.workoutList[props.index].unit} onChange={
                     (event: ChangeEvent<HTMLInputElement>) => {
                         props.setWorkout({
                             ...props.workout,

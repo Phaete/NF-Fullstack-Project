@@ -1,7 +1,7 @@
 import "./AddWorkoutComponent.css/"
 import {AddWorkoutComponentProps} from "./AddWorkoutComponentProps.ts"
 import {ChangeEvent, useEffect, useState} from "react";
-import {Workout, WorkoutListItem} from "../workoutComponent/WorkoutComponent.tsx";
+import {WorkoutListItem} from "../workoutComponent/WorkoutComponent.tsx";
 import AddExerciseLine from "../addExerciseLine/AddExerciseLine.tsx";
 import {Exercise} from "../../App.tsx";
 import axios from "axios";
@@ -10,45 +10,72 @@ import styled from "styled-components";
 
 export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentProps>) {
 
-    const dummyWorkoutItem: WorkoutListItem = {
+    const dummyWorkoutItem:() => WorkoutListItem = ():WorkoutListItem => { return {
         exercise: {
-            id: "",
-            name: "",
-            type: "",
-            muscle: "",
-            instructions: "",
-            equipment: "",
-            difficulty: "",
+            id:"",
+            name:"",
+            type:"",
+            muscle:"",
+            instructions:"",
+            equipment:"",
+            difficulty:"",
         },
         sets: 0,
         reps: 0,
         amount: 0,
-        unit: " ",
+        unit: "",
         uniqueId: crypto.randomUUID()
-    }
+    }}
 
-    const [workout, setWorkout] = useState<Workout>({id: "", name: "", workoutList: [dummyWorkoutItem]})
-    const [exerciseList, setExerciseList] = useState<Exercise[]>([])
+    const[exerciseList,setExerciseList] = useState<Exercise[]>([])
 
     useEffect(() => {
+        getAllCustomExercises()
+        getAllDefaultExercises()
+    }, []);
+
+    function getAllCustomExercises() {
         axios.get<Exercise[]>("/api/exercise")
             .then(response => setExerciseList(response.data))
             .catch(err => console.log(err))
-    }, []);
-
-    function resetForm() {
-        setWorkout({id: "", name: "", workoutList: [dummyWorkoutItem]})
     }
 
-    function handleSubmit() {
-        axios.post("/api/workouts", workout)
-            .then(() => {
-                props.setNewWorkout(false)
-                resetForm()
-                props.fetchData()
+    function getAllDefaultExercises() {
+        axios.get<Exercise[]>("/api/defaultExercises")
+            .then(response => {
+                setExerciseList(prevList => mergeUniqueExercises(prevList, response.data));
             })
-            .catch(err => console.error(err))
+            .catch(err => console.log(err));
+    }
 
+    function mergeUniqueExercises(list1: Exercise[], list2: Exercise[]): Exercise[] {
+        const allExercises = [...list1, ...list2];
+        return Array.from(new Set(allExercises.map(ex => ex.name)))
+            .map(name => allExercises.find(ex => ex.name === name)!);
+    }
+
+    function resetForm() {
+        props.setWorkout({id:"", name:"", workoutList:[dummyWorkoutItem()]})
+    }
+
+    function handleSubmit(){
+        if(props.workout.id!==""){
+            axios.put("/api/workouts/"+props.workout.id, props.workout)
+                .then(() => {
+                    props.setNewWorkout(false)
+                    resetForm()
+                    props.fetchData()
+                })
+                .catch(err => console.error(err))
+        } else {
+            axios.post("/api/workouts", props.workout)
+                .then(() => {
+                    props.setNewWorkout(false)
+                    resetForm()
+                    props.fetchData()
+                })
+                .catch(err => console.error(err))
+        }
     }
 
 
@@ -56,10 +83,10 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
         <FormContainer>
             <form>
                 <p>Workout Name</p>
-                <InputField
+                <InputField value={props.workout.name}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                        setWorkout({
-                            ...workout,
+                        props.setWorkout({
+                            ...props.workout,
                             name: event.target.value,
                         });
                     }}
@@ -67,21 +94,21 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
                 <p>Exercises</p>
                 <div style={{overflow: "auto",
                     maxHeight: "450px"}}>
-                {workout.workoutList.map((exercise, index) => (
+                {props.workout.workoutList.map((exercise, index) => (
                     <ExerciseContainer key={exercise.uniqueId}>
                         <AddExerciseLine
                             exercise={exercise}
                             index={index}
-                            workout={workout}
-                            setWorkout={setWorkout}
+                            workout={props.workout}
+                            setWorkout={props.setWorkout}
                             exerciseList={exerciseList}
                         />
                         <RemoveButton
                             type="button"
                             onClick={() => {
-                                setWorkout({
-                                    ...workout,
-                                    workoutList: workout.workoutList.filter((_, i) => i !== index),
+                                props.setWorkout({
+                                    ...props.workout,
+                                    workoutList: props.workout.workoutList.filter((_, i) => i !== index),
                                 });
                             }}
                         >
@@ -107,9 +134,9 @@ export default function AddWorkoutComponent(props: Readonly<AddWorkoutComponentP
             <Button
                 type="button"
                 onClick={() => {
-                    setWorkout({
-                        ...workout,
-                        workoutList: workout.workoutList.concat(dummyWorkoutItem),
+                    props.setWorkout({
+                        ...props.workout,
+                        workoutList: props.workout.workoutList.concat(dummyWorkoutItem)
                     });
                 }}
             >
