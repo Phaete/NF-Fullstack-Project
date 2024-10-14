@@ -15,9 +15,10 @@ public class ApiExerciseService {
 
 	public ApiExerciseService(
 			@Value("${API_NINJAS_URL:https://api.api-ninjas.com/v1/exercises}") String apiUrl,
-			@Value("${API_NINJAS_KEY:0}") String apiKey
+			@Value("${API_NINJAS_KEY:0}") String apiKey,
+			RestClient.Builder builder
 	) {
-		this.restClient = RestClient.builder()
+		this.restClient = builder
 				.defaultHeader("X-Api-Key", apiKey)
 				.baseUrl(apiUrl)
 				.build();
